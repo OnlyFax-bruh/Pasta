@@ -1,5 +1,5 @@
 require("dotenv").config();
-console.log("Environment Variables: " + process.env);
+console.log("Environment Variables: " + process.env.TOKEN);
 const fs = require("node:fs");
 const path = require("node:path");
 const {
