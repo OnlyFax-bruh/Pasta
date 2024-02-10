@@ -26,7 +26,7 @@ client.commands = new Collection();
 
 //Build MongoDB URI
 mongoPassword = process.env.MONGO_PASSWORD;
-const uri = `mongodb+srv://bytezadusto:${mongoPassword}@clusterpasta.ketfdz1.mongodb.net/?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://adminpastabot:${mongoPassword}@clusterpasta.ketfdz1.mongodb.net/?retryWrites=true&w=majority`;
 
 //Console log to check if Pasta's still alive
 client.once(Events.ClientReady, (readyClient) => {
