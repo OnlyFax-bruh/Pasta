@@ -25,7 +25,7 @@ const client = new Client({
 client.commands = new Collection();
 
 //Build MongoDB URI
-const { mongoPassword } = require("./config.json");
+mongoPassword = process.env.MONGO_PASSWORD;
 const uri = `mongodb+srv://bytezadusto:${mongoPassword}@clusterpasta.ketfdz1.mongodb.net/?retryWrites=true&w=majority`;
 
 //Console log to check if Pasta's still alive
