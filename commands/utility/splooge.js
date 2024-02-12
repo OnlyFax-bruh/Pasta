@@ -57,7 +57,7 @@ module.exports = {
 		pastaCollection.updateOne(filter, updateDoc);
 		await interaction.reply({
 			// HOW DO I PING A USER RAAAAAAAAAAAAAAAAAAA
-			content: `<@806964705008025611 has jacked off ${
+			content: `<@806964705008025611> has jacked off ${
 				sploogeDoc.jacks - 1
 			} times since ${initDate}`,
 		});
