@@ -50,6 +50,7 @@ module.exports = {
 		// maybe turn this into const initDate = sploogeDoc.initDate so its not the current time
 		const initDate = Date(sploogeDoc.initDate);
 		const filter = { documentName: "splooge" };
+		const newJacks = sploogeDoc.jacks + 1;
 		const updateDoc = {
 			$set: { jacks: newJacks },
 		};
@@ -60,7 +61,5 @@ module.exports = {
 				sploogeDoc.jacks - 1
 			} times since ${initDate}`,
 		});
-
-		const newJacks = sploogeDoc.jacks + 1;
 	},
 };
