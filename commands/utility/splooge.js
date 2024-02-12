@@ -53,7 +53,7 @@ module.exports = {
 			content: `<@$806964705008025611 has jacked off ${sploogeDoc.jacks} times since ${initDate}`,
 		});
 		const filter = { documentName: "splooge" };
-		const newJacks = `${sploogeDoc.jacks + 1}`;
+		const newJacks = sploogeDoc.jacks + 1;
 		const updateDoc = {
 			$set: { jacks: newJacks },
 		};
