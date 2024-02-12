@@ -49,15 +49,17 @@ module.exports = {
 		const sploogeDoc = sploogeDocArray[0];
 		// maybe turn this into const initDate = sploogeDoc.initDate so its not the current time
 		const initDate = Date(sploogeDoc.initDate);
-		await interaction.reply({
-			// HOW DO I PING A USER RAAAAAAAAAAAAAAAAAAA
-			content: `<@806964705008025611 has jacked off ${sploogeDoc.jacks} times since ${initDate}`,
-		});
 		const filter = { documentName: "splooge" };
 		const newJacks = sploogeDoc.jacks + 1;
 		const updateDoc = {
 			$set: { jacks: newJacks },
 		};
 		pastaCollection.updateOne(filter, updateDoc);
+		await interaction.reply({
+			// HOW DO I PING A USER RAAAAAAAAAAAAAAAAAAA
+			content: `<@806964705008025611 has jacked off ${
+				sploogeDoc.jacks - 1
+			} times since ${initDate}`,
+		});
 	},
 };
