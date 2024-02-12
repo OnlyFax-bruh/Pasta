@@ -37,18 +37,26 @@ module.exports = {
 		const pastaCollection = pastaDB.collection(
 			"PastaCollection"
 		);
-		const doc = {
-			name: "Splooge jacked off once again on",
-			date: today,
-		};
-		const result = await pastaCollection.insertOne(doc);
-		console.log(
-			`A document was inserted with the _id: ${result.insertedId}`
-		);
+		// This returns an array even tho theres only one doc.
+		// the method for returning only one doc exists and works technically but its cringe
+		const sploogeDocArray = await pastaCollection
+			.find({
+				documentName: "splooge",
+			})
+			.project({ jacks: 1, initDate: 1, _id: 0 })
+			.toArray();
+		// access the first and only element now
+		const sploogeDoc = sploogeDocArray[0];
+		// maybe turn this into const initDate = sploogeDoc.initDate so its not the current time
+		const initDate = Date(sploogeDoc.initDate);
 		await interaction.reply({
-			content:
-				"<@$806964705008025611 jacked off once again on " +
-				today,
+			content: `<@$806964705008025611 has jacked off ${sploogeDoc.jacks} times since ${initDate}`,
 		});
+		const filter = { documentName: "splooge" };
+		const newJacks = `${sploogeDoc.jacks + 1}`;
+		const updateDoc = {
+			$set: { jacks: newJacks },
+		};
+		pastaCollection.updateOne(filter, updateDoc);
 	},
 };
