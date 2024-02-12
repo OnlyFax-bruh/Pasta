@@ -1,5 +1,5 @@
 require("dotenv").config();
-// Test comment to push
+
 const fs = require("node:fs");
 const path = require("node:path");
 const {
@@ -12,7 +12,6 @@ const {
 	GatewayIntentBits,
 	Collection,
 } = require("discord.js");
-
 //I know that this ain't the right way to do it Byte. We ball.
 //OK nvm we don't ball Discord resets the token anytime we try to ball. We do this right.
 //const { token } = require("./config.json");
@@ -56,6 +55,7 @@ async function run() {
 		await mongoClient.close();
 	}
 }
+
 run().catch(console.dir);
 
 //Setting up the bot to read the path and all of the commands
