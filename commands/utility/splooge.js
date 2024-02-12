@@ -41,13 +41,14 @@ module.exports = {
 			name: "Splooge jacked off once again on",
 			date: today,
 		};
-		const contentString = doc.name + " " + doc.date;
 		const result = await pastaCollection.insertOne(doc);
 		console.log(
 			`A document was inserted with the _id: ${result.insertedId}`
 		);
 		await interaction.reply({
-			content: contentString,
+			content:
+				"<@$806964705008025611 jacked off once again on " +
+				today,
 		});
 	},
 };
