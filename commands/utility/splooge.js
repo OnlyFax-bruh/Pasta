@@ -1,4 +1,4 @@
-/*require("dotenv").config();
+require("dotenv").config();
 const {
 	MongoClient,
 	ServerApiVersion,
@@ -51,4 +51,3 @@ module.exports = {
 		});
 	},
 };
-*/
