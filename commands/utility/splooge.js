@@ -50,7 +50,8 @@ module.exports = {
 		// maybe turn this into const initDate = sploogeDoc.initDate so its not the current time
 		const initDate = Date(sploogeDoc.initDate);
 		await interaction.reply({
-			content: `<@$806964705008025611 has jacked off ${sploogeDoc.jacks} times since ${initDate}`,
+			// HOW DO I PING A USER RAAAAAAAAAAAAAAAAAAA
+			content: `<@806964705008025611 has jacked off ${sploogeDoc.jacks} times since ${initDate}`,
 		});
 		const filter = { documentName: "splooge" };
 		const newJacks = sploogeDoc.jacks + 1;
