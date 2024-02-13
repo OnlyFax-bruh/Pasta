@@ -17,7 +17,7 @@ module.exports = {
 			Math.random() * embedStrings.length
 		);
 		console.log(embedStrings.length);
-		const embed = new EmbedBuilder.setImage(
+		const embed = new EmbedBuilder().setImage(
 			embedStrings[randomNumber]
 		);
 		await interaction.reply({
