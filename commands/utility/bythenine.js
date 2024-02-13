@@ -17,11 +17,10 @@ module.exports = {
 			Math.random() * embedStrings.length
 		);
 		console.log(embedStrings.length);
-		const embed = EmbedBuilder.setImage(
+		const embed = new EmbedBuilder().setImage(
 			embedStrings[randomNumber]
 		);
 		await interaction.reply({
-			content: `${target}`,
 			embeds: [embed],
 		});
 	},
