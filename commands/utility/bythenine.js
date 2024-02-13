@@ -21,7 +21,6 @@ module.exports = {
 			embedStrings[randomNumber]
 		);
 		await interaction.reply({
-			content: `${target}`,
 			embeds: [embed],
 		});
 	},
