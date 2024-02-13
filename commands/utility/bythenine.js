@@ -16,7 +16,6 @@ module.exports = {
 		var randomNumber = Math.floor(
 			Math.random() * embedStrings.length
 		);
-		console.log(embedStrings.length);
 		const embed = new EmbedBuilder().setImage(
 			embedStrings[randomNumber]
 		);
