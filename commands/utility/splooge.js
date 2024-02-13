@@ -55,6 +55,7 @@ module.exports = {
 			$set: { jacks: newJacks },
 		};
 		pastaCollection.updateOne(filter, updateDoc);
+		console.log("Splooge Initdate: " + initDate);
 		await interaction.reply({
 			content: `<@806964705008025611> has jacked off ${
 				sploogeDoc.jacks - 1
