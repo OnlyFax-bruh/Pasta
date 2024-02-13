@@ -3,8 +3,10 @@ const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName("embedfail")
-		.setDescription("Nice Embed PAL"),
+		.setName("nine")
+		.setDescription(
+			"As talos is my witness, I'm fucking losing it"
+		),
 	async execute(interaction) {
 		embedStrings = [
 			"https://cdn.discordapp.com/attachments/1191016756333007019/1206808178591924286/by-the-nine-im-tweakin-elder-scrolls.gif?ex=65dd5ab3&is=65cae5b3&hm=37d69d542301e413db02fbc7d0ee7e83051d503522e7f9cc6bf2e0a82a11c702&",
