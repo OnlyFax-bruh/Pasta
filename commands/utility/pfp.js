@@ -25,30 +25,26 @@ module.exports = {
 				.setRequired(true)
 		),
 	async execute(interaction) {
+		const baseString = "https://cdn.discordapp.com/";
 		const target =
 			interaction.options.getUser("target") ?? ""; //Why do I need to do this last part again?
 		const guild = interaction.member.guild;
-		const guildTarget =
+		const guildTargetAvatar =
 			guild.members.fetch(target).avatar;
 		var finalTarget;
-		console.log(target);
-		console.log(guild);
-		console.log(guildTarget);
+
 		if (interaction.options.getBoolean("serverpfp")) {
-			finalTarget = guildTarget;
+			fullString =
+				baseString +
+				`guilds/${guild.id}/users/${target.id}/avatars/${guildTargetAvatar}.png`;
 		} else {
-			finalTarget = target;
+			fullString =
+				baseString +
+				`avatars/${target.id}/${target.avatar}.png`;
 		}
-		finalTarget = guildTarget;
-		const embed = new EmbedBuilder()
-			.setTitle(`${target.username}'s pfp`)
-			.setImage(
-				target.displayAvatarURL({
-					format: "png",
-					size: 2048,
-					dynamic: true,
-				})
-			);
+		finalString =
+			fullString + "?size=desired_size=2048";
+		embed = EmbedBuilder.setImage(finalString);
 		await interaction.reply({ embeds: [embed] });
 	},
 };
