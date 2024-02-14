@@ -37,7 +37,6 @@ module.exports = {
 		var contentString = "";
 		if (interaction.options.getBoolean("serverpfp")) {
 			if (guildTarget.avatar != null) {
-				// maybe replace target.userid with something else idk
 				fullString =
 					baseString +
 					`guilds/${guild.id}/users/${target.id}/avatars/${guildTargetAvatar}.webp`;
