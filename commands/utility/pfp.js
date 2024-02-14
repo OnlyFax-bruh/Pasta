@@ -25,7 +25,7 @@ module.exports = {
 		)*/,
 	async execute(interaction) {
 		
-		const target = interaction.options.getUser("target");
+		const target = interaction.options.getUser("target") ?? ""; //Why do I need to do this last part again?
 		/*const guild = interaction.member.guild;
 		const guildTarget = ;
 		var finalTarget;
