@@ -42,7 +42,10 @@ module.exports = {
 					`guilds/${guild.id}/users/${target.id}/avatars/${guildTargetAvatar}.webp`;
 			} else {
 				contentString =
-					"This user does not have a server specific pfp, dumbass";
+					"This user does not have a server specific pfp, dumbass. I'll give you the normal one out of pity";
+				fullString =
+					baseString +
+					`avatars/${target.id}/${target.avatar}.webp`;
 			}
 		} else {
 			fullString =
