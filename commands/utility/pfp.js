@@ -34,13 +34,17 @@ module.exports = {
 		);
 		console.log(guildTarget);
 		const guildTargetAvatar = guildTarget.avatar;
-
+		var contentString = "";
 		if (interaction.options.getBoolean("serverpfp")) {
-			if (guildTarget.avatar != null)
+			if (guildTarget.avatar != null) {
 				// maybe replace target.userid with something else idk
 				fullString =
 					baseString +
 					`guilds/${guild.id}/users/${target.id}/avatars/${guildTargetAvatar}.webp`;
+			} else {
+				contentString =
+					"This user does not have a server specific pfp, dumbass";
+			}
 		} else {
 			fullString =
 				baseString +
@@ -49,7 +53,10 @@ module.exports = {
 		finalString = fullString + `?size=2048`;
 		console.log(finalString);
 		embed = new EmbedBuilder().setImage(finalString);
-		await interaction.reply({ embeds: [embed] });
+		await interaction.reply({
+			content: contentString,
+			embeds: [embed],
+		});
 	},
 };
 
