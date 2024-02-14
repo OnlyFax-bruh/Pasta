@@ -28,14 +28,18 @@ module.exports = {
 		const target =
 			interaction.options.getUser("target") ?? ""; //Why do I need to do this last part again?
 		const guild = interaction.member.guild;
-		const guildTarget = guild.members.fetch(target);
+		const guildTarget =
+			guild.members.fetch(target).avatar;
 		var finalTarget;
+		console.log(target);
+		console.log(guild);
+		console.log(guildTarget);
 		if (interaction.options.getBoolean("serverpfp")) {
 			finalTarget = guildTarget;
 		} else {
 			finalTarget = target;
 		}
-
+		finalTarget = guildTarget;
 		const embed = new EmbedBuilder()
 			.setTitle(`${target.username}'s pfp`)
 			.setImage(
