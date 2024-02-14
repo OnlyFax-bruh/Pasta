@@ -29,22 +29,25 @@ module.exports = {
 		const target =
 			interaction.options.getUser("target") ?? ""; //Why do I need to do this last part again?
 		const guild = interaction.member.guild;
-		const guildTargetAvatar =
-			guild.members.fetch(target).avatar;
-		var finalTarget;
+		const guildTarget = await guild.members.fetch(
+			target
+		);
+		console.log(guildTarget);
+		const guildTargetAvatar = guildTarget.avatar;
 
 		if (interaction.options.getBoolean("serverpfp")) {
-			// maybe replace target.userid with something else idk
-			fullString =
-				baseString +
-				`guilds/${guild.id}/users/${target.id}/avatars/${guildTargetAvatar}.png`;
+			if (guildTarget.avatar != null)
+				// maybe replace target.userid with something else idk
+				fullString =
+					baseString +
+					`guilds/${guild.id}/users/${target.id}/avatars/${guildTargetAvatar}.webp`;
 		} else {
 			fullString =
 				baseString +
-				`avatars/${target.id}/${target.avatar}.png`;
+				`avatars/${target.id}/${target.avatar}.webp`;
 		}
-		finalString =
-			fullString + "?size=desired_size=2048";
+		finalString = fullString + `?size=2048`;
+		console.log(finalString);
 		embed = new EmbedBuilder().setImage(finalString);
 		await interaction.reply({ embeds: [embed] });
 	},
