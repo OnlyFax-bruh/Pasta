@@ -14,21 +14,21 @@ module.exports = {
 				)
 				.setRequired(true)
 		)
-		.addBooleanOption((option) =>
+		/*.addBooleanOption((option) =>
 			option
 				.setName("serverpfp")
 				.setDescription(
 					"Yoink the server avatar or personal avatar?"
 				)
 				.setRequired(true)
-		),
+		)*/,
 	async execute(interaction) {
 		const target =
 			interaction.options.getUser("target") ?? "";
 		const embed = new EmbedBuilder()
 			.setTitle(`${target.username}'s pfp`)
 			.setImage(
-				target.avatarURL({
+				target.displayAvatarURL({
 					format: "png",
 					size: 2048,
 					dynamic: true,
