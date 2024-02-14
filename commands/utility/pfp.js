@@ -27,19 +27,19 @@ module.exports = {
 		const target = interaction.options.getUser("target");
 		const guild = interaction.member.guild;
 		const guildTarget = guild.member(target);
-		var finalTarget;
+		/*var finalTarget;
 		if(interaction.options.getBoolean("serverpfp")){
 			finalTarget = guildTarget;
 		}
 		else{
 			finalTarget = target;
-		}
+		}*/
 
-		
+
 		const embed = new EmbedBuilder()
 			.setTitle(`${target.username}'s pfp`)
 			.setImage(
-				finalTarget.displayAvatarURL({ 
+				guildTarget.displayAvatarURL({ 
 					format: 'png', 
 					size: 2048, 
 					dynamic: true 
