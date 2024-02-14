@@ -5,11 +5,20 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("getpfp")
 		.setDescription("Get any member's pfp")
+		
 		.addUserOption((option) =>
 			option
 				.setName("target")
 				.setDescription(
 					"Nice pfp, would be a shame if I yoinked it"
+				)
+				.setRequired(true)
+		)
+		.addBooleanOption((option) =>
+			option
+				.setName("serverpfp")
+				.setDescription(
+					"Yoink the server avatar or personal avatar?"
 				)
 				.setRequired(true)
 		),
@@ -19,7 +28,7 @@ module.exports = {
 		const embed = new EmbedBuilder()
 			.setTitle(`${target.username}'s pfp`)
 			.setImage(
-				target.displayAvatarURL({
+				target.avatarURL({
 					format: "png",
 					size: 2048,
 					dynamic: true,
