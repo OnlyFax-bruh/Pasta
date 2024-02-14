@@ -1,6 +1,7 @@
+//TODO: Get server avatars, I ain't making a command for those nitro users
+
 const { EmbedBuilder } = require("discord.js");
 const { SlashCommandBuilder } = require("discord.js");
-const { Guilds } = require("")
 
 module.exports = {
 	data: new SlashCommandBuilder()
