@@ -3,7 +3,7 @@
 const { EmbedBuilder } = require("discord.js");
 const { SlashCommandBuilder } = require("discord.js");
 
-/*module.exports = {
+module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("getpfp")
 		.setDescription("Get any member's pfp")
@@ -25,33 +25,31 @@ const { SlashCommandBuilder } = require("discord.js");
 				.setRequired(true)
 		),
 	async execute(interaction) {
-		
-		const target = interaction.options.getUser("target") ?? ""; //Why do I need to do this last part again?
+		const target =
+			interaction.options.getUser("target") ?? ""; //Why do I need to do this last part again?
 		const guild = interaction.member.guild;
-		const guildTarget = ;
+		const guildTarget = guild.members.fetch(target);
 		var finalTarget;
-		if(interaction.options.getBoolean("serverpfp")){
+		if (interaction.options.getBoolean("serverpfp")) {
 			finalTarget = guildTarget;
-		}
-		else{
+		} else {
 			finalTarget = target;
 		}
-
 
 		const embed = new EmbedBuilder()
 			.setTitle(`${target.username}'s pfp`)
 			.setImage(
-				target.displayAvatarURL({ 
-					format: 'png', 
-					size: 2048, 
-					dynamic: true 
+				target.displayAvatarURL({
+					format: "png",
+					size: 2048,
+					dynamic: true,
 				})
 			);
 		await interaction.reply({ embeds: [embed] });
 	},
-};*/
+};
 
-module.exports = {
+/*module.exports = {
     data: new SlashCommandBuilder()
         .setName('getpfp')
         .setDescription("Get any member's pfp")
@@ -67,4 +65,4 @@ module.exports = {
             .setImage(target.displayAvatarURL({ format: 'png', size: 2048, dynamic: true }));
         await interaction.reply({embeds: [embed] });
     },
-};
+};*/
