@@ -32,7 +32,6 @@ module.exports = {
 		const guildTarget = await guild.members.fetch(
 			target
 		);
-		console.log(guildTarget);
 		const guildTargetAvatar = guildTarget.avatar;
 		var contentString = "";
 		if (interaction.options.getBoolean("serverpfp")) {
