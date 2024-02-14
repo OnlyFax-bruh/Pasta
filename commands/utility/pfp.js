@@ -20,7 +20,7 @@ module.exports = {
 			option
 				.setName("serverpfp")
 				.setDescription(
-					"Yoink the server avatar or personal avatar?"
+					"Yoink the server avatar? Will yoink default avatar if set to False"
 				)
 				.setRequired(true)
 		),
