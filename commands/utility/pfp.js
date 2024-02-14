@@ -1,5 +1,6 @@
 const { EmbedBuilder } = require("discord.js");
 const { SlashCommandBuilder } = require("discord.js");
+const { Guilds } = require("")
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -14,20 +15,20 @@ module.exports = {
 				)
 				.setRequired(true)
 		)
-		.addBooleanOption((option) =>
+		/*.addBooleanOption((option) =>
 			option
 				.setName("serverpfp")
 				.setDescription(
 					"Yoink the server avatar or personal avatar?"
 				)
 				.setRequired(true)
-		),
+		)*/,
 	async execute(interaction) {
-		//This weirdness needs to be done or the embed gets fucked up
+		
 		const target = interaction.options.getUser("target");
-		const guild = interaction.member.guild;
-		const guildTarget = guild.member(target);
-		/*var finalTarget;
+		/*const guild = interaction.member.guild;
+		const guildTarget = ;
+		var finalTarget;
 		if(interaction.options.getBoolean("serverpfp")){
 			finalTarget = guildTarget;
 		}
@@ -39,7 +40,7 @@ module.exports = {
 		const embed = new EmbedBuilder()
 			.setTitle(`${target.username}'s pfp`)
 			.setImage(
-				guildTarget.displayAvatarURL({ 
+				target.displayAvatarURL({ 
 					format: 'png', 
 					size: 2048, 
 					dynamic: true 
