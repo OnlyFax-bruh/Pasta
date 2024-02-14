@@ -5,7 +5,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("getpfp")
 		.setDescription("Get any member's pfp")
-		
+
 		.addUserOption((option) =>
 			option
 				.setName("target")
@@ -23,20 +23,26 @@ module.exports = {
 				.setRequired(true)
 		),
 	async execute(interaction) {
-		var target = interaction.options.getUser("target");
-		if(interaction.options.getBoolean("serverpfp"))
-		{
-			const guild = interaction.member.guild;
-			target = guild.members.cache.get(interaction.options.getUser("target").id);
+		//This weirdness needs to be done or the embed gets fucked up
+		const target = interaction.options.getUser("target");
+		const guild = interaction.member.guild;
+		const guildTarget = guild.member(target);
+		var finalTarget;
+		if(interaction.options.getBoolean("serverpfp")){
+			finalTarget = guildTarget;
 		}
+		else{
+			finalTarget = target;
+		}
+
 		
 		const embed = new EmbedBuilder()
 			.setTitle(`${target.username}'s pfp`)
 			.setImage(
-				target.displayAvatarURL({
-					format: "png",
-					size: 2048,
-					dynamic: true,
+				finalTarget.displayAvatarURL({ 
+					format: 'png', 
+					size: 2048, 
+					dynamic: true 
 				})
 			);
 		await interaction.reply({ embeds: [embed] });
