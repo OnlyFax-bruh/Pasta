@@ -33,7 +33,7 @@ module.exports = {
 		const embed = new EmbedBuilder()
 			.setTitle(`${target.username}'s pfp`)
 			.setImage(
-				target.avatarURL({
+				target.displayAvatarURL({
 					format: "png",
 					size: 2048,
 					dynamic: true,
