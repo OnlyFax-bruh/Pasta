@@ -29,7 +29,7 @@ module.exports = {
 			const guild = interaction.member.guild;
 			target = guild.members.cache.get(interaction.options.getUser("target").id);
 		}
-			
+		
 		const embed = new EmbedBuilder()
 			.setTitle(`${target.username}'s pfp`)
 			.setImage(
