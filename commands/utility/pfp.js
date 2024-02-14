@@ -14,21 +14,26 @@ module.exports = {
 				)
 				.setRequired(true)
 		)
-		/*.addBooleanOption((option) =>
+		.addBooleanOption((option) =>
 			option
 				.setName("serverpfp")
 				.setDescription(
 					"Yoink the server avatar or personal avatar?"
 				)
 				.setRequired(true)
-		)*/,
+		),
 	async execute(interaction) {
-		const target =
-			interaction.options.getUser("target") ?? "";
+		var target = interaction.options.getUser("target");
+		if(interaction.options.getBoolean("serverpfp"))
+		{
+			const guild = interaction.member.guild;
+			target = guild.members.cache.get(interaction.options.getUser("target").id);
+		}
+			
 		const embed = new EmbedBuilder()
 			.setTitle(`${target.username}'s pfp`)
 			.setImage(
-				target.displayAvatarURL({
+				target.avatarURL({
 					format: "png",
 					size: 2048,
 					dynamic: true,
