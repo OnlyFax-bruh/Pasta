@@ -34,6 +34,7 @@ module.exports = {
 		var finalTarget;
 
 		if (interaction.options.getBoolean("serverpfp")) {
+			// maybe replace target.userid with something else idk
 			fullString =
 				baseString +
 				`guilds/${guild.id}/users/${target.id}/avatars/${guildTargetAvatar}.png`;
@@ -44,7 +45,7 @@ module.exports = {
 		}
 		finalString =
 			fullString + "?size=desired_size=2048";
-		embed = EmbedBuilder.setImage(finalString);
+		embed = new EmbedBuilder().setImage(finalString);
 		await interaction.reply({ embeds: [embed] });
 	},
 };
