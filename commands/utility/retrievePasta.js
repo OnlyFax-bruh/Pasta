@@ -38,7 +38,7 @@ module.exports = {
 		const copyPastaCollection =
 			pastaDB.collection("CopyPastas");
 
-		const doc = copyPastaCollection.findOne({
+		const doc = await copyPastaCollection.findOne({
             title : interaction.options.getString("title")
         });
 
