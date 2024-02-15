@@ -37,11 +37,21 @@ module.exports = {
 		const pastaDB = mongoClient.db("PastaDB");
 		const copyPastaCollection =
 			pastaDB.collection("CopyPastas");
+		
+		//Check to see if the database has a pasta before trying to retrieve it
+		const count = await copyPastaCollection.countDocuments({
+			title : interaction.options.getString("title") 
+		});
 
-		const doc = await copyPastaCollection.findOne({
-            title : interaction.options.getString("title")
-        });
+		if(count != 0)
+		{
+			const doc = await copyPastaCollection.findOne({
+            	title : interaction.options.getString("title")
+        	});
 
-		await interaction.reply(doc.body);
+			await interaction.reply(doc.body);
+		}
+
+		await interaction.reply(`${interaction.options.getString("title")} is not an existing pasta. Make that shit before you send it.`);
 	},
 };
