@@ -20,7 +20,7 @@ const mongoClient = new MongoClient(uri, {
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName("makepasta")
+		.setName("getpasta")
 		.setDescription(
 			"Make pasta spit your brainrot"
 		)
