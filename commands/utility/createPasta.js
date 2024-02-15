@@ -44,16 +44,27 @@ module.exports = {
 		const pastaDB = mongoClient.db("PastaDB");
 		const copyPastaCollection =
 			pastaDB.collection("CopyPastas");
+		
+		//This should be 0	
+		const count = await copyPastaCollection.countDocuments({
+			title: interaction.options.getString("title")
+		});
 
-		//Simple document insertion
-		const doc = {
-			title: interaction.options.getString("title"),
-			body: interaction.options.getString("pasta"),
-		};
-		await copyPastaCollection.insertOne(doc);
+		console.log(count);
 
-		await interaction.reply(
-			`New Pasta "${doc.title}" up and ready to go`
-		);
+		if(count == 0){
+			//Simple document insertion
+			const doc = {
+				title: interaction.options.getString("title"),
+				body: interaction.options.getString("pasta"),
+			};
+			await copyPastaCollection.insertOne(doc);
+
+			await interaction.reply(
+				`New Pasta "${doc.title}" up and ready to go`
+			);
+		}
+
+		await interaction.reply("Pasta already exists (or one with this name anyway)");
 	},
 };
