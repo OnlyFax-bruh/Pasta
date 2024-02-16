@@ -187,7 +187,6 @@ export async function callSploogeEvent() {
 		.toArray();
 	// access the first and only element now
 	const sploogeDoc = sploogeDocArray[0];
-	// maybe turn this into const initDate = sploogeDoc.initDate so its not the current time
 	const initDate = sploogeDoc.initDate;
 	const filter = { documentName: "splooge" };
 	const newJacks = sploogeDoc.jacks + 1;
