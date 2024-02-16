@@ -1,4 +1,5 @@
 require("dotenv").config();
+import {callSploogeEvent} from index.js;
 const {
 	MongoClient,
 	ServerApiVersion,
@@ -39,6 +40,8 @@ module.exports = {
 		);
 		// This returns an array even tho theres only one doc.
 		// the method for returning only one doc exists and works technically but its cringe
+		// experimental
+
 		const sploogeDocArray = await pastaCollection
 			.find({
 				documentName: "splooge",

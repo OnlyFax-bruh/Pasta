@@ -152,7 +152,7 @@ client.on(Events.MessageCreate, async (message) => {
 		if (
 			(messageString.includes("jack") &&
 				messageString.includes("off")) ||
-			message.includes("mastru")
+			messageString.includes("mastru")
 		) {
 			content = callSploogeEvent();
 			message.reply(content);
@@ -166,7 +166,7 @@ client.on(Events.MessageCreate, async (message) => {
 		}
 	} else if (message.author.id === UserID.BoardID) {
 		if (messageString.includes("nigg")) {
-			// Todo: implement n word counter.. sometime
+			// TODO: implement n word counter.. sometime
 			message.reply(
 				"If Byte wasn't lazy I'd be incrementing an n-word counter rn"
 			);
@@ -177,7 +177,7 @@ client.on(Events.MessageCreate, async (message) => {
 		}
 	}
 });
-async function callSploogeEvent() {
+export async function callSploogeEvent() {
 	// Connect to PastaDB within MongoDB
 	const sploogeDocArray = await pastaCollection
 		.find({
@@ -187,7 +187,6 @@ async function callSploogeEvent() {
 		.toArray();
 	// access the first and only element now
 	const sploogeDoc = sploogeDocArray[0];
-	// maybe turn this into const initDate = sploogeDoc.initDate so its not the current time
 	const initDate = sploogeDoc.initDate;
 	const filter = { documentName: "splooge" };
 	const newJacks = sploogeDoc.jacks + 1;
