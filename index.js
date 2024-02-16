@@ -64,7 +64,6 @@ async function run() {
 		await mongoClient.close();
 	}
 }
-
 run().catch(console.dir);
 
 //Setting up the bot to read the path and all of the commands
@@ -114,6 +113,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 // TODO: We should probably put this entire method somewhere else for readability but i cba to do it rn
 // Fax, should you do it, also move the callSplooge method after it. It needs that
 client.on(Events.MessageCreate, async (message) => {
+	await mongoClient.connect();
 	pastaDB = mongoClient.db("PastaDB");
 	pastaCollection = pastaDB.collection("PastaCollection");
 	// Basically Enums
@@ -152,7 +152,7 @@ client.on(Events.MessageCreate, async (message) => {
 				messageString.includes("off")) ||
 			messageString.includes("mastru")
 		) {
-			content = callSploogeEvent();
+			content = await callSploogeEvent();
 			message.reply(content);
 		}
 		// I fucking hate nimbus dude (real)
@@ -195,6 +195,6 @@ async function callSploogeEvent() {
 	content = `<@806964705008025611> has jacked off ${
 		sploogeDoc.jacks - 1
 	} times since ${initDate}`;
-	return content;
+	return await content;
 }
 client.login(token);
