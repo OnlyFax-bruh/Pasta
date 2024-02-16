@@ -164,13 +164,19 @@ client.on(Events.MessageCreate, async (message) => {
 				"Shut the fuck up about wilk nimbus I swear to god"
 			);
 		}
+	} else if (message.author.id === UserID.BoardID) {
+		if (messageString.includes("nigg")) {
+			// Todo: implement n word counter.. sometime
+			message.reply(
+				"If Byte wasn't lazy I'd be incrementing an n-word counter rn"
+			);
+		}
 	} else if (message.author.id === UserID.ByteID) {
 		if (messageString === "test") {
 			message.reply("Fuck you");
 		}
 	}
 });
-
 async function callSploogeEvent() {
 	// Connect to PastaDB within MongoDB
 	const sploogeDocArray = await pastaCollection
