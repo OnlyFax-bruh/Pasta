@@ -59,10 +59,6 @@ async function run() {
 		console.log(
 			"Pinged your deployment. You successfully connected to MongoDB!"
 		);
-		pastaDB = mongoClient.db("PastaDB");
-		pastaCollection = pastaDB.collection(
-			"PastaCollection"
-		);
 	} finally {
 		// Ensures that the client will close when you finish/error
 		await mongoClient.close();
@@ -70,6 +66,8 @@ async function run() {
 }
 
 run().catch(console.dir);
+pastaDB = mongoClient.db("PastaDB");
+pastaCollection = pastaDB.collection("PastaCollection");
 
 //Setting up the bot to read the path and all of the commands
 const foldersPath = path.join(__dirname, "commands");
