@@ -66,8 +66,6 @@ async function run() {
 }
 
 run().catch(console.dir);
-pastaDB = mongoClient.db("PastaDB");
-pastaCollection = pastaDB.collection("PastaCollection");
 
 //Setting up the bot to read the path and all of the commands
 const foldersPath = path.join(__dirname, "commands");
@@ -116,6 +114,8 @@ client.on(Events.InteractionCreate, async (interaction) => {
 // TODO: We should probably put this entire method somewhere else for readability but i cba to do it rn
 // Fax, should you do it, also move the callSplooge method after it. It needs that
 client.on(Events.MessageCreate, async (message) => {
+	pastaDB = mongoClient.db("PastaDB");
+	pastaCollection = pastaDB.collection("PastaCollection");
 	// Basically Enums
 	const ChannelID = {
 		NutGeneralId: "1162085095532929144",
