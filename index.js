@@ -166,7 +166,7 @@ client.on(Events.MessageCreate, async (message) => {
 		}
 	} else if (message.author.id === UserID.BoardID) {
 		if (messageString.includes("nigg")) {
-			// Todo: implement n word counter.. sometime
+			// TODO: implement n word counter.. sometime
 			message.reply(
 				"If Byte wasn't lazy I'd be incrementing an n-word counter rn"
 			);
@@ -177,7 +177,7 @@ client.on(Events.MessageCreate, async (message) => {
 		}
 	}
 });
-async function callSploogeEvent() {
+export async function callSploogeEvent() {
 	// Connect to PastaDB within MongoDB
 	const sploogeDocArray = await pastaCollection
 		.find({
