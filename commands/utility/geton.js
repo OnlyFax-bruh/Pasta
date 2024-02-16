@@ -1,4 +1,4 @@
-const { EmbedBuilder } = require("discord.js");
+const { EmbedBuilder, Embed } = require("discord.js");
 const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
@@ -48,10 +48,8 @@ module.exports = {
 				if (
 					interaction.options.getBoolean("ping")
 				) {
-					// Ping the MHW role
 					content = "<@&1203950066138882070>";
 				}
-				// Set the embed image for Monster Hunter
 				embed = new EmbedBuilder().setImage(
 					EmbedURL.MHW
 				);
@@ -61,10 +59,8 @@ module.exports = {
 				if (
 					interaction.options.getBoolean("ping")
 				) {
-					// Ping everyone
 					content = "@everyone";
 				}
-				// Set the embed image for Guilty Gear Strive
 				embed = new EmbedBuilder().setImage(
 					EmbedURL.Strive
 				);
@@ -73,14 +69,20 @@ module.exports = {
 			case input === "lethal" ||
 				input === "lethal company" ||
 				input === "lc":
-				// Handle Lethal Company input
-				// ...
+				if (
+					interaction.options.getBoolean("ping")
+				) {
+					content = "<@1202146567021408326>";
+				}
+				embed = new EmbedBuilder.setImage(
+					EmbedURL.LethalCompany
+				);
 				break;
 
-			// Add more cases as needed for additional conditions
-
 			default:
-				// Handle default case if none of the above conditions match
+				embed = new EmbedBuilder.setImage(
+					EmbedURL.Default
+				);
 				break;
 		}
 		if (content != "") {
