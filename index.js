@@ -177,7 +177,7 @@ client.on(Events.MessageCreate, async (message) => {
 		}
 	}
 });
-export async function callSploogeEvent() {
+async function callSploogeEvent() {
 	// Connect to PastaDB within MongoDB
 	const sploogeDocArray = await pastaCollection
 		.find({
