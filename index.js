@@ -84,13 +84,13 @@ for (const folder of commandFolders) {
 //Listener for the commands
 client.on(Events.InteractionCreate, async (interaction) => {
 	if (interaction.isChatInputCommand()) {
+		const command = interaction.client.commands.get(
+			interaction.commandName
+		);
 		if (!command) {
 			console.error("No matching command found");
 			return;
 		}
-		const command = interaction.client.commands.get(
-			interaction.commandName
-		);
 		try {
 			await command.execute(interaction);
 		} catch (error) {
