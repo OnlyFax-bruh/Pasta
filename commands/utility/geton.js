@@ -40,7 +40,6 @@ module.exports = {
 			.getString("game")
 			.toLowerCase();
 
-		//TODO: make this more readable. imma look up if theres switch case or some shit in js
 		switch (true) {
 			case input === "mhw" ||
 				input === "world" ||
