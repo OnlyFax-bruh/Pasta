@@ -23,6 +23,7 @@ module.exports = {
 		),
 
 	async execute(interaction) {
+		// Basically an Enum
 		const EmbedURL = {
 			MHW: "https://cdn.discordapp.com/attachments/1191016756333007019/1205532188552986704/get-on-monster-hunter-monster-hunter.gif?ex=65d8b657&is=65c64157&hm=f9a3568df6ca7050b6fcd7d054dd1fa9c8fadd58baa7419561e09ba22f4d1d6b&",
 			Strive: "https://cdn.discordapp.com/attachments/1191016756333007019/1205541562621100082/jarl-swagdog-hop-on-strive.gif?ex=65d8bf12&is=65c64a12&hm=7557d2695157c2644fd74c016a1885cedaed680e98c63bbf316825c43a79941e&",
@@ -31,6 +32,7 @@ module.exports = {
 			Default:
 				"https://cdn.discordapp.com/attachments/1191016756333007019/1205541580467994785/hop-on-vc-lesbian.gif?ex=65d8bf16&is=65c64a16&hm=be926cd1171b801182948397d7bed69961222f4423997c8bb8878af62478b159&",
 		};
+
 		// The reason why this didnt work was cause of the const embed, don't ask me how exactly
 		var embed;
 		var content = "";
@@ -39,43 +41,48 @@ module.exports = {
 			.toLowerCase();
 
 		//TODO: make this more readable. imma look up if theres switch case or some shit in js
-		if (
-			input === "mhw" ||
-			input === "world" ||
-			input.includes("monster hunter")
-		) {
-			if (interaction.options.getBoolean("ping")) {
-				// Ping MHW role
-				content = "<@&1203950066138882070>";
-			}
-			embed = new EmbedBuilder().setImage(
-				EmbedURL.MHW
-			);
-		} else if (input === "strive" || input === "ggst") {
-			if (interaction.options.getBoolean("ping")) {
-				content = "@everyone";
-			}
-			embed = new EmbedBuilder().setImage(
-				EmbedURL.Strive
-			);
-		} else if (
-			input === "lethal" ||
-			input === "lethal company" ||
-			input === "lc"
-		) {
-			if (interaction.options.getBoolean("ping")) {
-				// Ping Lethal Company role
-				content = "<@&1202146567021408326>";
-			}
-			embed = new EmbedBuilder().setImage(
-				EmbedURL.LethalCompany
-			);
-		} else {
-			embed = new EmbedBuilder().setImage(
-				EmbedURL.Default
-			);
-		}
+		switch (true) {
+			case input === "mhw" ||
+				input === "world" ||
+				input.includes("monster hunter"):
+				if (
+					interaction.options.getBoolean("ping")
+				) {
+					// Ping the MHW role
+					content = "<@&1203950066138882070>";
+				}
+				// Set the embed image for Monster Hunter
+				embed = new EmbedBuilder().setImage(
+					EmbedURL.MHW
+				);
+				break;
 
+			case input === "strive" || input === "ggst":
+				if (
+					interaction.options.getBoolean("ping")
+				) {
+					// Ping everyone
+					content = "@everyone";
+				}
+				// Set the embed image for Guilty Gear Strive
+				embed = new EmbedBuilder().setImage(
+					EmbedURL.Strive
+				);
+				break;
+
+			case input === "lethal" ||
+				input === "lethal company" ||
+				input === "lc":
+				// Handle Lethal Company input
+				// ...
+				break;
+
+			// Add more cases as needed for additional conditions
+
+			default:
+				// Handle default case if none of the above conditions match
+				break;
+		}
 		if (content != "") {
 			await interaction.reply({
 				embeds: [embed],
