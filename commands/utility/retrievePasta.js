@@ -20,22 +20,15 @@ const mongoClient = new MongoClient(uri, {
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName("makepasta")
+		.setName("getpasta")
 		.setDescription(
-			"Birth an abomination for pasta to spam. This is the joy of creation."
+			"Make pasta spit your brainrot"
 		)
 
 		.addStringOption((option) =>
 			option
 				.setName("title")
-				.setDescription("Name dat shit")
-				.setRequired(true)
-		)
-
-		.addStringOption((option) =>
-			option
-				.setName("pasta")
-				.setDescription("This pasta is a monster")
+				.setDescription("Pasta name")
 				.setRequired(true)
 		),
 
@@ -45,26 +38,20 @@ module.exports = {
 		const copyPastaCollection =
 			pastaDB.collection("CopyPastas");
 		
-		//This should be 0	
+		//Check to see if the database has a pasta before trying to retrieve it
 		const count = await copyPastaCollection.countDocuments({
-			title: interaction.options.getString("title")
+			title : interaction.options.getString("title") 
 		});
 
-		console.log(count);
+		if(count != 0)
+		{
+			const doc = await copyPastaCollection.findOne({
+            	title : interaction.options.getString("title")
+        	});
 
-		if(count == 0){
-			//Simple document insertion
-			const doc = {
-				title: interaction.options.getString("title"),
-				body: interaction.options.getString("pasta"),
-			};
-			await copyPastaCollection.insertOne(doc);
-
-			await interaction.reply(
-				`New Pasta "${doc.title}" up and ready to go`
-			);
+			await interaction.reply(doc.body);
 		}
 
-		await interaction.reply("Pasta already exists (or one with this name anyway)");
+		await interaction.reply(`${interaction.options.getString("title")} is not an existing pasta. Make that shit before you send it.`);
 	},
 };
