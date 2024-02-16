@@ -115,6 +115,8 @@ client.on(Events.InteractionCreate, async (interaction) => {
 	}
 });
 
+// TODO: We should probably put this entire method somewhere else for readability but i cba to do it rn
+// Fax, should you do it, also move the callSplooge method after it. It needs that
 client.on(Events.MessageCreate, async (message) => {
 	// Basically Enums
 	const ChannelID = {
@@ -145,6 +147,7 @@ client.on(Events.MessageCreate, async (message) => {
 		return;
 	}
 	messageString = message.content.toLowerCase();
+	// Basically calls splooge command when sploof writes jack(ing) off
 	if (message.author.id === UserID.SploofID) {
 		if (
 			(messageString.includes("jack") &&
@@ -154,6 +157,7 @@ client.on(Events.MessageCreate, async (message) => {
 			content = callSploogeEvent();
 			message.reply(content);
 		}
+		// I fucking hate nimbus dude (real)
 	} else if (message.author.id === UserID.NimbusID) {
 		if (messageString.includes("wilk")) {
 			message.reply(
