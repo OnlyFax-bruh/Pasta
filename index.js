@@ -152,7 +152,7 @@ client.on(Events.MessageCreate, async (message) => {
 		if (
 			(messageString.includes("jack") &&
 				messageString.includes("off")) ||
-			message.includes("mastru")
+			messageString.includes("mastru")
 		) {
 			content = callSploogeEvent();
 			message.reply(content);
