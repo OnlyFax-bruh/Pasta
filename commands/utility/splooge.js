@@ -1,5 +1,4 @@
 require("dotenv").config();
-import {callSploogeEvent} from index.js;
 const {
 	MongoClient,
 	ServerApiVersion,
