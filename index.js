@@ -162,13 +162,14 @@ client.on(Events.MessageCreate, async (message) => {
 				"Shut the fuck up about wilk nimbus I swear to god"
 			);
 		}
-	} else if (message.author.id === UserID.BoardID) {
+	} else if (
+		message.author.id === UserID.BoardID ||
+		message.author.id === UserID.ByteID
+	) {
 		if (messageString.includes("nigg")) {
 			// TODO: implement n word counter.. sometime
-			callHellcatPersonEvent();
-			message.reply(
-				"If Byte wasn't lazy I'd be incrementing an n-word counter rn"
-			);
+			contentString = await callHellcatPersonEvent();
+			message.reply({ content: contentString });
 		}
 	} else if (message.author.id === UserID.ByteID) {
 		if (messageString === "test") {
@@ -177,48 +178,59 @@ client.on(Events.MessageCreate, async (message) => {
 	}
 });
 async function callHellcatPersonEvent() {
-	const today = new Date();
-	var hellcatPersonCounter;
+	const initDate = new Date("February 18, 2024 00:00:00");
+	var hellcatPersonCounter = 0;
 	var update;
-	const projection = { name: 1 };
+	const projection = {
+		name: 1,
+		hellcatPersonCounter: 1,
+		initDate: 1,
+	};
 	const cursor = pastaCollection
 		.find({ name: "hellcatPersonCounter" })
 		.project(projection);
-	welfareReceiverDoc = cursor.hasNext()
-		? cursor.next()
+	welfareReceiverDoc = (await cursor.hasNext())
+		? await cursor.next()
 		: null;
+	console.log("Initdate: " + welfareReceiverDoc.initDate);
 	// Find out if friedChickenMuncherCounter exists already
-	if (welfareReceiverDoc == null) {
+	if (welfareReceiverDoc === null) {
 		hellcatPersonCounter = 0;
 		update = {
 			$set: {
 				name: "hellcatPersonCounter",
-				counter: hellcatPersonCounter + 1,
-				initDate: today,
+				hellcatPersonCounter:
+					hellcatPersonCounter + 1,
+				initDate: initDate,
 			},
 		};
 	} else {
 		hellcatPersonCounter =
-			welfareReceiverDoc.hellcatPersonCounter;
+			await welfareReceiverDoc.hellcatPersonCounter;
+		console.log(
+			"Hellcat People: " + hellcatPersonCounter
+		);
 		update = {
 			$set: {
 				name: "hellcatPersonCounter",
-				counter: hellcatPersonCounter + 1,
-				initDate: wellfareReceiverDoc.initDate,
+				hellcatPersonCounter:
+					hellcatPersonCounter + 1,
+				initDate: initDate,
 			},
 		};
 	}
 	const query = { name: "hellcatPersonCounter" };
-
 	const options = { upsert: true };
-	pastaCollection.updateOne(query, update, options);
+	await pastaCollection.updateOne(query, update, options);
 
-	message.reply({
-		content: `Board has said the n-word ${
-			hellcatPersonCounter - 1
-		} times since`,
-	});
+	console.log("Welfare receiver : " + welfareReceiverDoc);
+	numberToDisplay = hellcatPersonCounter;
+	dateToDisplay = welfareReceiverDoc.initDate;
+	var content = `Board has said the n-word ${numberToDisplay} times since ${dateToDisplay}`;
+	console.log(content);
+	return content;
 }
+
 async function callSploogeEvent() {
 	// Connect to PastaDB within MongoDB
 	const sploogeDocArray = await pastaCollection
