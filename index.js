@@ -162,10 +162,7 @@ client.on(Events.MessageCreate, async (message) => {
 				"Shut the fuck up about wilk nimbus I swear to god"
 			);
 		}
-	} else if (
-		message.author.id === UserID.BoardID ||
-		message.author.id === UserID.ByteID
-	) {
+	} else if (message.author.id === UserID.BoardID) {
 		if (messageString.includes("nigg")) {
 			// TODO: implement n word counter.. sometime
 			contentString = await callHellcatPersonEvent();
