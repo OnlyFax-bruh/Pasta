@@ -144,7 +144,9 @@ client.on(Events.MessageCreate, async (message) => {
 	if (!isValidID) {
 		return;
 	}
-	messageString = message.content.toLowerCase();
+	messageString = message.content
+		.toLowerCase()
+		.replace(/\s/g, "");
 	// Basically calls splooge command when sploof writes jack(ing) off
 	if (message.author.id === UserID.SploofID) {
 		if (
