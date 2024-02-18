@@ -165,6 +165,7 @@ client.on(Events.MessageCreate, async (message) => {
 	} else if (message.author.id === UserID.BoardID) {
 		if (messageString.includes("nigg")) {
 			// TODO: implement n word counter.. sometime
+			callHellcatPersonEvent();
 			message.reply(
 				"If Byte wasn't lazy I'd be incrementing an n-word counter rn"
 			);
@@ -175,6 +176,49 @@ client.on(Events.MessageCreate, async (message) => {
 		}
 	}
 });
+async function callHellcatPersonEvent() {
+	const today = new Date();
+	var hellcatPersonCounter;
+	var update;
+	const projection = { name: 1 };
+	const cursor = pastaCollection
+		.find({ name: "hellcatPersonCounter" })
+		.project(projection);
+	welfareReceiverDoc = cursor.hasNext()
+		? cursor.next()
+		: null;
+	// Find out if friedChickenMuncherCounter exists already
+	if (welfareReceiverDoc == null) {
+		hellcatPersonCounter = 0;
+		update = {
+			$set: {
+				name: "hellcatPersonCounter",
+				counter: hellcatPersonCounter + 1,
+				initDate: today,
+			},
+		};
+	} else {
+		hellcatPersonCounter =
+			welfareReceiverDoc.hellcatPersonCounter;
+		update = {
+			$set: {
+				name: "hellcatPersonCounter",
+				counter: hellcatPersonCounter + 1,
+				initDate: wellfareReceiverDoc.initDate,
+			},
+		};
+	}
+	const query = { name: "hellcatPersonCounter" };
+
+	const options = { upsert: true };
+	pastaCollection.updateOne(query, update, options);
+
+	message.reply({
+		content: `Board has said the n-word ${
+			hellcatPersonCounter - 1
+		} times since`,
+	});
+}
 async function callSploogeEvent() {
 	// Connect to PastaDB within MongoDB
 	const sploogeDocArray = await pastaCollection
