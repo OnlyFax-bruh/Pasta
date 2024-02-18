@@ -162,12 +162,8 @@ client.on(Events.MessageCreate, async (message) => {
 				"Shut the fuck up about wilk nimbus I swear to god"
 			);
 		}
-	} else if (
-		message.author.id === UserID.BoardID ||
-		message.author.id === UserID.ByteID
-	) {
+	} else if (message.author.id === UserID.BoardID) {
 		if (messageString.includes("nigg")) {
-			// TODO: implement n word counter.. sometime
 			contentString = await callHellcatPersonEvent();
 			message.reply({ content: contentString });
 		}
@@ -192,7 +188,6 @@ async function callHellcatPersonEvent() {
 	welfareReceiverDoc = (await cursor.hasNext())
 		? await cursor.next()
 		: null;
-	console.log("Initdate: " + welfareReceiverDoc.initDate);
 	// Find out if friedChickenMuncherCounter exists already
 	if (welfareReceiverDoc === null) {
 		hellcatPersonCounter = 0;
@@ -207,9 +202,6 @@ async function callHellcatPersonEvent() {
 	} else {
 		hellcatPersonCounter =
 			await welfareReceiverDoc.hellcatPersonCounter;
-		console.log(
-			"Hellcat People: " + hellcatPersonCounter
-		);
 		update = {
 			$set: {
 				name: "hellcatPersonCounter",
@@ -223,11 +215,9 @@ async function callHellcatPersonEvent() {
 	const options = { upsert: true };
 	await pastaCollection.updateOne(query, update, options);
 
-	console.log("Welfare receiver : " + welfareReceiverDoc);
-	numberToDisplay = hellcatPersonCounter;
+	numberToDisplay = hellcatPersonCounter + 1;
 	dateToDisplay = welfareReceiverDoc.initDate;
 	var content = `Board has said the n-word ${numberToDisplay} times since ${dateToDisplay}`;
-	console.log(content);
 	return content;
 }
 
