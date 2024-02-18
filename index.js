@@ -215,7 +215,7 @@ async function callHellcatPersonEvent() {
 	const options = { upsert: true };
 	await pastaCollection.updateOne(query, update, options);
 
-	numberToDisplay = hellcatPersonCounter;
+	numberToDisplay = hellcatPersonCounter + 1;
 	dateToDisplay = welfareReceiverDoc.initDate;
 	var content = `Board has said the n-word ${numberToDisplay} times since ${dateToDisplay}`;
 	return content;
