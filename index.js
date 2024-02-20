@@ -130,6 +130,7 @@ client.on(Events.MessageCreate, async (message) => {
 		SploofID: "806964705008025611",
 		BoardID: "1081308415260885052",
 		NimbusID: "720155708758425670",
+		EddID: "515997929241182238",
 	};
 
 	isValidID = false;
@@ -158,6 +159,11 @@ client.on(Events.MessageCreate, async (message) => {
 			message.reply(content);
 		}
 		// I fucking hate nimbus dude (real)
+	} else if (message.author.id === UserID.EddID) {
+		if (messageString.includes("fag")) {
+			content = await callEddEvent();
+			message.reply(content);
+		}
 	} else if (message.author.id === UserID.NimbusID) {
 		if (messageString.includes("wilk")) {
 			message.reply(
@@ -187,7 +193,7 @@ async function callHellcatPersonEvent() {
 	const cursor = pastaCollection
 		.find({ name: "hellcatPersonCounter" })
 		.project(projection);
-	welfareReceiverDoc = (await cursor.hasNext())
+	var welfareReceiverDoc = (await cursor.hasNext())
 		? await cursor.next()
 		: null;
 	// Find out if friedChickenMuncherCounter exists already
@@ -246,3 +252,48 @@ async function callSploogeEvent() {
 	return await content;
 }
 client.login(token);
+
+async function callEddEvent() {
+	const initDate = new Date("February 18, 2024 00:00:00");
+	var fagCounter = 0;
+	var update;
+	const projection = {
+		name: 1,
+		fagCounter: 1,
+		initDate: 1,
+	};
+	const cursor = pastaCollection
+		.find({ name: "fagCounter" })
+		.project(projection);
+	var fagCounterDoc = (await cursor.hasNext())
+		? await cursor.next()
+		: null;
+	// Find out if fagCounter exists already
+	if (fagCounterDoc === null) {
+		fagCounter = 0;
+		update = {
+			$set: {
+				name: "fagCounter",
+				fagCounter: fagCounter + 1,
+				initDate: initDate,
+			},
+		};
+	} else {
+		fagCounter = await fagCounterDoc.fagCounter;
+		update = {
+			$set: {
+				name: "fagCounter",
+				fagCounter: fagCounter + 1,
+				initDate: initDate,
+			},
+		};
+	}
+	const query = { name: "fagCounter" };
+	const options = { upsert: true };
+	await pastaCollection.updateOne(query, update, options);
+
+	numberToDisplay = fagCounter + 1;
+	dateToDisplay = fagCounterDoc.initDate;
+	var content = `Edd has been homophobic ${numberToDisplay} times since ${dateToDisplay}`;
+	return content;
+}
