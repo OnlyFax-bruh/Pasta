@@ -111,7 +111,6 @@ client.on(Events.InteractionCreate, async (interaction) => {
 });
 
 // TODO: We should probably put this entire method somewhere else for readability but i cba to do it rn
-// Fax, should you do it, also move the callSplooge method after it. It needs that
 client.on(Events.MessageCreate, async (message) => {
 	await mongoClient.connect();
 	pastaDB = mongoClient.db("PastaDB");
@@ -133,6 +132,7 @@ client.on(Events.MessageCreate, async (message) => {
 		EddID: "515997929241182238",
 	};
 
+	// Check if Channel is contained in ChannelID Enums before posting / checking there
 	isValidID = false;
 	for (var ID in ChannelID) {
 		if (
@@ -165,6 +165,16 @@ client.on(Events.MessageCreate, async (message) => {
 			message.reply(content);
 		}
 	} else if (message.author.id === UserID.NimbusID) {
+		message.guild.members.cache.forEach((member) => {
+			if (member.id === UserID.NimbusID) {
+				member
+					.timeout(1 * 60 * 1000)
+					.then(() =>
+						console.log("Timed out nimbus")
+					)
+					.catch(console.log);
+			}
+		});
 		if (messageString.includes("wilk")) {
 			message.reply(
 				"Shut the fuck up about wilk nimbus I swear to god"
