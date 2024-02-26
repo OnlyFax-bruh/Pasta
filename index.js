@@ -165,17 +165,21 @@ client.on(Events.MessageCreate, async (message) => {
 			message.reply(content);
 		}
 	} else if (message.author.id === UserID.NimbusID) {
-		message.guild.members.cache.forEach((member) => {
-			if (member.id === UserID.NimbusID) {
-				member
-					.timeout(1 * 60 * 1000)
-					.then(() =>
-						console.log("Timed out nimbus")
-					)
-					.catch(console.log);
-			}
-		});
 		if (messageString.includes("wilk")) {
+			message.guild.members.cache.forEach(
+				(member) => {
+					if (member.id === UserID.NimbusID) {
+						member
+							.timeout(1 * 60 * 1000)
+							.then(() =>
+								console.log(
+									"Timed out nimbus"
+								)
+							)
+							.catch(console.log);
+					}
+				}
+			);
 			message.reply(
 				"Shut the fuck up about wilk nimbus I swear to god"
 			);
