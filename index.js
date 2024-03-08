@@ -127,7 +127,7 @@ function hasDateChanged() {
 		return false;
 	}
 }
-var bannedWords = generate(5);
+export var bannedWords = generate(5);
 // Example usage: Check if date has changed every 1 minute
 setInterval(() => {
 	if (hasDateChanged()) {
@@ -216,6 +216,28 @@ client.on(Events.MessageCreate, async (message) => {
 	} else if (message.author.id === UserID.ByteID) {
 		if (messageString === "test") {
 			message.reply("Fuck you");
+		}
+	}
+
+	for (const word of bannedWords) {
+		if (messageString.includes(word)) {
+			content = callBannedWordEvent();
+			message.guild.members.cache.forEach(
+				(member) => {
+					if (member.id === message.author.id) {
+						member
+							.timeout(1 * 60 * 1000)
+							.then(() =>
+								console.log(
+									"Timed out " +
+										member.name
+								)
+							)
+							.catch(console.log);
+					}
+				}
+			);
+			message.reply(content);
 		}
 	}
 });
@@ -335,4 +357,7 @@ async function callEddEvent() {
 	return content;
 }
 
-function callBannedWordEvent() {}
+function callBannedWordEvent() {
+	content =
+		"whoopsie doopsie you did a fuckie wuckie. get timed out lmao";
+}
