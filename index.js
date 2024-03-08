@@ -131,8 +131,12 @@ function hasDateChanged() {
 // 	);
 // 	return (bannedWords = generateBannedWords(5));
 // }
-import { Variables } from "variables.js";
-var bannedWords = Variables.getBannedWords();
+const Variables = require("./variables.js");
+var bannedWords;
+async () => {
+	bannedWords = await Variables.getBannedWords();
+};
+
 // Example usage: Check if date has changed every 1 minute
 setInterval(() => {
 	if (hasDateChanged()) {
