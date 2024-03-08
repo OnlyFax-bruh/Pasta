@@ -144,6 +144,7 @@ setInterval(() => {
 	}
 }, 120000);
 bannedWords = ["test"];
+Variables.printOutBannedWords();
 
 // TODO: We should probably put this entire method somewhere else for readability but i cba to do it rn
 client.on(Events.MessageCreate, async (message) => {

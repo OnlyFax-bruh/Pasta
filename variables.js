@@ -10,6 +10,10 @@ class Variables {
 		Variables.bannedWords =
 			await this.generateBannedWords();
 	}
+
+	printOutBannedWords() {
+		console.log(bannedWords);
+	}
 }
 
 module.exports = new Variables();
