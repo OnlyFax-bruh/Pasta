@@ -226,6 +226,7 @@ client.on(Events.MessageCreate, async (message) => {
 	for (var i = 0; i < bannedWords.length; i++) {
 		word = bannedWords[i].toLowerCase();
 		if (messageString.includes(word)) {
+			console.log("Banned words: " + bannedWords);
 			content = callBannedWordEvent();
 			message.guild.members.cache.forEach(
 				(member) => {
