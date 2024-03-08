@@ -151,9 +151,8 @@ client.on(Events.MessageCreate, async (message) => {
 	// Basically calls splooge command when sploof writes jack(ing) off
 	if (message.author.id === UserID.SploofID) {
 		if (
-			(messageString.includes("jack") &&
-				messageString.includes("off")) ||
-			messageString.includes("mastru")
+			messageString.includes("jack") &&
+			messageString.includes("off")
 		) {
 			content = await callSploogeEvent();
 			message.reply(content);
