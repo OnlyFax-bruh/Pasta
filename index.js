@@ -1,5 +1,5 @@
 require("dotenv").config();
-
+import { generate } from "random-words";
 const fs = require("node:fs");
 const path = require("node:path");
 const {
@@ -88,7 +88,7 @@ for (const folder of commandFolders) {
 		}
 	}
 }
-
+client.login(token);
 //Listener for the commands
 client.on(Events.InteractionCreate, async (interaction) => {
 	if (interaction.isChatInputCommand()) {
@@ -109,6 +109,31 @@ client.on(Events.InteractionCreate, async (interaction) => {
 		return;
 	}
 });
+
+let lastCheckedDate = new Date();
+
+function hasDateChanged() {
+	const currentDate = new Date();
+
+	if (
+		currentDate.toDateString() !==
+		lastCheckedDate.toDateString()
+	) {
+		// Date has changed
+		lastCheckedDate = currentDate;
+		return true;
+	} else {
+		// Date has not changed
+		return false;
+	}
+}
+var bannedWords = generate(5);
+// Example usage: Check if date has changed every 1 minute
+setInterval(() => {
+	if (hasDateChanged()) {
+		bannedWords = generate(5);
+	}
+}, 120000);
 
 // TODO: We should probably put this entire method somewhere else for readability but i cba to do it rn
 client.on(Events.MessageCreate, async (message) => {
@@ -264,7 +289,6 @@ async function callSploogeEvent() {
 	} times since ${initDate}`;
 	return await content;
 }
-client.login(token);
 
 async function callEddEvent() {
 	const initDate = new Date("February 18, 2024 00:00:00");
@@ -310,3 +334,5 @@ async function callEddEvent() {
 	var content = `Edd has been homophobic ${numberToDisplay} times since ${dateToDisplay}`;
 	return content;
 }
+
+function callBannedWordEvent() {}
