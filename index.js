@@ -1,5 +1,4 @@
 require("dotenv").config();
-
 const fs = require("node:fs");
 const path = require("node:path");
 const {
@@ -49,7 +48,6 @@ const mongoClient = new MongoClient(uri, {
 
 var pastaDB;
 var pastaCollection;
-
 async function run() {
 	try {
 		// Connect the client to the server    (optional starting in v4.7)
@@ -88,7 +86,7 @@ for (const folder of commandFolders) {
 		}
 	}
 }
-
+client.login(token);
 //Listener for the commands
 client.on(Events.InteractionCreate, async (interaction) => {
 	if (interaction.isChatInputCommand()) {
@@ -109,6 +107,37 @@ client.on(Events.InteractionCreate, async (interaction) => {
 		return;
 	}
 });
+
+let lastCheckedDate = new Date();
+
+function hasDateChanged() {
+	const currentDate = new Date();
+
+	if (
+		currentDate.toDateString() !==
+		lastCheckedDate.toDateString()
+	) {
+		// Date has changed
+		lastCheckedDate = currentDate;
+		return true;
+	} else {
+		// Date has not changed
+		return false;
+	}
+}
+async function generateBannedWords() {
+	let { generate } = await import("random-words");
+	return generate(5);
+}
+var bannedWords;
+bannedWords = generateBannedWords();
+// Example usage: Check if date has changed every 1 minute
+setInterval(() => {
+	if (hasDateChanged()) {
+		bannedWords = generate(5);
+	}
+}, 120000);
+bannedWords = ["test"];
 
 // TODO: We should probably put this entire method somewhere else for readability but i cba to do it rn
 client.on(Events.MessageCreate, async (message) => {
@@ -151,9 +180,8 @@ client.on(Events.MessageCreate, async (message) => {
 	// Basically calls splooge command when sploof writes jack(ing) off
 	if (message.author.id === UserID.SploofID) {
 		if (
-			(messageString.includes("jack") &&
-				messageString.includes("off")) ||
-			messageString.includes("mastru")
+			messageString.includes("jack") &&
+			messageString.includes("off")
 		) {
 			content = await callSploogeEvent();
 			message.reply(content);
@@ -192,6 +220,30 @@ client.on(Events.MessageCreate, async (message) => {
 	} else if (message.author.id === UserID.ByteID) {
 		if (messageString === "test") {
 			message.reply("Fuck you");
+		}
+	}
+
+	for (var i = 0; i < bannedWords.length; i++) {
+		word = bannedWords[i].toLowerCase();
+		if (messageString.includes(word)) {
+			console.log("Banned words: " + bannedWords);
+			content = callBannedWordEvent();
+			message.guild.members.cache.forEach(
+				(member) => {
+					if (member.id === message.author.id) {
+						member
+							.timeout(1 * 60 * 1000)
+							.then(() =>
+								console.log(
+									"Timed out " +
+										member.name
+								)
+							)
+							.catch(console.log);
+					}
+				}
+			);
+			message.reply(content);
 		}
 	}
 });
@@ -265,7 +317,6 @@ async function callSploogeEvent() {
 	} times since ${initDate}`;
 	return await content;
 }
-client.login(token);
 
 async function callEddEvent() {
 	const initDate = new Date("February 18, 2024 00:00:00");
@@ -310,4 +361,9 @@ async function callEddEvent() {
 	dateToDisplay = fagCounterDoc.initDate;
 	var content = `Edd has been homophobic ${numberToDisplay} times since ${dateToDisplay}`;
 	return content;
+}
+
+function callBannedWordEvent() {
+	return (content =
+		"whoopsie doopsie you did a fuckie wuckie. get timed out lmao");
 }
