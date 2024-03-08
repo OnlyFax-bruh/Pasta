@@ -137,6 +137,7 @@ setInterval(() => {
 		bannedWords = generate(5);
 	}
 }, 120000);
+bannedWords = ["test"];
 
 // TODO: We should probably put this entire method somewhere else for readability but i cba to do it rn
 client.on(Events.MessageCreate, async (message) => {
@@ -223,7 +224,7 @@ client.on(Events.MessageCreate, async (message) => {
 	}
 
 	for (var i = 0; i < bannedWords.length; i++) {
-		word = bannedWords[i];
+		word = bannedWords[i].toLowerCase();
 		if (messageString.includes(word)) {
 			content = callBannedWordEvent();
 			message.guild.members.cache.forEach(
@@ -362,6 +363,6 @@ async function callEddEvent() {
 }
 
 function callBannedWordEvent() {
-	content =
-		"whoopsie doopsie you did a fuckie wuckie. get timed out lmao";
+	return (content =
+		"whoopsie doopsie you did a fuckie wuckie. get timed out lmao");
 }
