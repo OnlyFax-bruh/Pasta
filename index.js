@@ -125,26 +125,19 @@ function hasDateChanged() {
 		return false;
 	}
 }
-// async function getBannedWords() {
-// 	let { generateBannedWords, bannedWords } = await import(
-// 		"variables.js"
-// 	);
-// 	return (bannedWords = generateBannedWords(5));
-// }
 const Variables = require("./variables.js");
-var bannedWords;
-async () => {
-	bannedWords = await Variables.getBannedWords();
-};
-
+async function initBannedWords() {
+	await Variables.initializeBannedWords();
+	return await Variables.generateBannedWords();
+}
+initBannedWords();
 // Example usage: Check if date has changed every 1 minute
 setInterval(() => {
 	if (hasDateChanged()) {
-		bannedWords = generate(5);
+		bannedWords = Variables.generateBannedWords();
 	}
 }, 120000);
-bannedWords = ["test"];
-Variables.printOutBannedWords();
+Variables.bannedWords = ["test"];
 
 // TODO: We should probably put this entire method somewhere else for readability but i cba to do it rn
 client.on(Events.MessageCreate, async (message) => {
@@ -230,10 +223,13 @@ client.on(Events.MessageCreate, async (message) => {
 		}
 	}
 
-	for (var i = 0; i < bannedWords.length; i++) {
-		word = bannedWords[i].toLowerCase();
-		if (messageString.includes(" " + word + " ")) {
-			console.log("Banned words: " + bannedWords);
+	for (var i = 0; i < Variables.bannedWords.length; i++) {
+		word = Variables.bannedWords[i].toLowerCase();
+		if (messageString.includes(word)) {
+			console.log(
+				"Banned words: " +
+					Variables.printOutBannedWords()
+			);
 			content = callBannedWordEvent();
 			message.guild.members.cache.forEach(
 				(member) => {

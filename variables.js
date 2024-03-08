@@ -1,5 +1,5 @@
 class Variables {
-	static bannedWords;
+	static bannedWords = [""];
 
 	async generateBannedWords() {
 		let { generate } = await import("random-words");
@@ -12,7 +12,10 @@ class Variables {
 	}
 
 	printOutBannedWords() {
-		console.log(bannedWords);
+		console.log(
+			"Banned words in Variables: " +
+				Variables.bannedWords
+		);
 	}
 }
 
