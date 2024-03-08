@@ -125,12 +125,14 @@ function hasDateChanged() {
 		return false;
 	}
 }
-async function generateBannedWords() {
-	let { generate } = await import("random-words");
-	return generate(5);
-}
-var bannedWords;
-bannedWords = generateBannedWords();
+// async function getBannedWords() {
+// 	let { generateBannedWords, bannedWords } = await import(
+// 		"variables.js"
+// 	);
+// 	return (bannedWords = generateBannedWords(5));
+// }
+import { Variables } from "variables.js";
+var bannedWords = Variables.getBannedWords();
 // Example usage: Check if date has changed every 1 minute
 setInterval(() => {
 	if (hasDateChanged()) {
