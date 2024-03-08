@@ -1,6 +1,6 @@
 const { EmbedBuilder } = require("discord.js");
 const { SlashCommandBuilder } = require("discord.js");
-import { bannedWords } from "../index.js";
+const { bannedWords } = require("../../index.js");
 
 module.exports = {
 	data: new SlashCommandBuilder()

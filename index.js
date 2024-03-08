@@ -1,5 +1,4 @@
 require("dotenv").config();
-import { generate } from "random-words";
 const fs = require("node:fs");
 const path = require("node:path");
 const {
@@ -49,7 +48,6 @@ const mongoClient = new MongoClient(uri, {
 
 var pastaDB;
 var pastaCollection;
-
 async function run() {
 	try {
 		// Connect the client to the server    (optional starting in v4.7)
@@ -127,7 +125,12 @@ function hasDateChanged() {
 		return false;
 	}
 }
-export var bannedWords = generate(5);
+async function generateBannedWords() {
+	let { generate } = await import("random-words");
+	return generate(5);
+}
+var bannedWords;
+bannedWords = generateBannedWords();
 // Example usage: Check if date has changed every 1 minute
 setInterval(() => {
 	if (hasDateChanged()) {
@@ -219,7 +222,8 @@ client.on(Events.MessageCreate, async (message) => {
 		}
 	}
 
-	for (const word of bannedWords) {
+	for (var i = 0; i < bannedWords.length; i++) {
+		word = bannedWords[i];
 		if (messageString.includes(word)) {
 			content = callBannedWordEvent();
 			message.guild.members.cache.forEach(
