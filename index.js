@@ -225,6 +225,7 @@ client.on(Events.MessageCreate, async (message) => {
 		}
 	}
 
+	/*
 	var bannedWords = Variables.getBannedWords();
 	contentString = "";
 	for (var i = 0; i < bannedWords.length; i++) {
@@ -253,6 +254,7 @@ client.on(Events.MessageCreate, async (message) => {
 			message.reply(contentString);
 		}
 	}
+	*/
 });
 async function callHellcatPersonEvent() {
 	const initDate = new Date("February 18, 2024 00:00:00");
