@@ -1,9 +1,11 @@
+const bannedwords = require("./commands/utility/bannedwords");
+
 class Variables {
 	static bannedWords = [""];
 
 	async generateBannedWords() {
 		let { generate } = await import("random-words");
-		return generate(5);
+		Variables.bannedWords = generate(5);
 	}
 
 	async initializeBannedWords() {
@@ -12,10 +14,16 @@ class Variables {
 	}
 
 	printOutBannedWords() {
-		console.log(
+		var content =
 			"Banned words in Variables: " +
-				Variables.bannedWords
-		);
+			Variables.bannedWords;
+		return content;
+	}
+	getBannedWordsLength() {
+		return Variables.bannedWords.length;
+	}
+	getBannedWords() {
+		return Variables.bannedWords;
 	}
 }
 

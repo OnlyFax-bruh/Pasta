@@ -12,6 +12,8 @@ const {
 	Collection,
 	User,
 } = require("discord.js");
+const Variables = require("./variables.js");
+const bannedwords = require("./commands/utility/bannedwords.js");
 //I know that this ain't the right way to do it Byte. We ball.
 //OK nvm we don't ball Discord resets the token anytime we try to ball. We do this right.
 //const { token } = require("./config.json");
@@ -125,10 +127,10 @@ function hasDateChanged() {
 		return false;
 	}
 }
-const Variables = require("./variables.js");
+
 async function initBannedWords() {
 	await Variables.initializeBannedWords();
-	return await Variables.generateBannedWords();
+	var bannedwords = Variables.generateBannedWords();
 }
 initBannedWords();
 // Example usage: Check if date has changed every 1 minute
@@ -137,7 +139,6 @@ setInterval(() => {
 		bannedWords = Variables.generateBannedWords();
 	}
 }, 120000);
-Variables.bannedWords = ["test"];
 
 // TODO: We should probably put this entire method somewhere else for readability but i cba to do it rn
 client.on(Events.MessageCreate, async (message) => {
@@ -159,6 +160,7 @@ client.on(Events.MessageCreate, async (message) => {
 		BoardID: "1081308415260885052",
 		NimbusID: "720155708758425670",
 		EddID: "515997929241182238",
+		PastaID: "1190966073571426374",
 	};
 
 	// Check if Channel is contained in ChannelID Enums before posting / checking there
@@ -223,17 +225,19 @@ client.on(Events.MessageCreate, async (message) => {
 		}
 	}
 
-	for (var i = 0; i < Variables.bannedWords.length; i++) {
-		word = Variables.bannedWords[i].toLowerCase();
-		if (messageString.includes(word)) {
-			console.log(
-				"Banned words: " +
-					Variables.printOutBannedWords()
-			);
-			content = callBannedWordEvent();
+	var bannedWords = Variables.getBannedWords();
+	contentString = "";
+	for (var i = 0; i < bannedWords.length; i++) {
+		word = bannedWords[i].toLowerCase();
+		if (
+			messageString.includes(word) &&
+			message.author.id !== UserID.PastaID
+		) {
 			message.guild.members.cache.forEach(
 				(member) => {
 					if (member.id === message.author.id) {
+						contentString =
+							callBannedWordEvent();
 						member
 							.timeout(1 * 60 * 1000)
 							.then(() =>
@@ -246,7 +250,7 @@ client.on(Events.MessageCreate, async (message) => {
 					}
 				}
 			);
-			message.reply(content);
+			message.reply(contentString);
 		}
 	}
 });
@@ -367,6 +371,11 @@ async function callEddEvent() {
 }
 
 function callBannedWordEvent() {
+	console.log(
+		`CallBannedWordEvent: ${Variables.printOutBannedWords()}`
+	);
 	return (content =
 		"whoopsie doopsie you did a fuckie wuckie. get timed out lmao");
 }
+
+module.exports = Variables;

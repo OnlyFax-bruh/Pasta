@@ -1,10 +1,9 @@
 const { EmbedBuilder } = require("discord.js");
 const { SlashCommandBuilder } = require("discord.js");
-const { bannedWords } = require("../../index.js");
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName("showwords")
+		.setName("bannedwords")
 		.setDescription("Print or change banned words")
 		.addBooleanOption((option) =>
 			option
@@ -20,18 +19,18 @@ module.exports = {
 		),
 	async execute(interaction) {
 		content = "";
-		const Variables = require("./variables.js");
+		const Variables = require("../../index.js");
 		if (interaction.options.getBoolean("print")) {
 			content = `Banned words: ${Variables.printOutBannedWords()}`;
 		}
 		if (interaction.options.getBoolean("regenerate")) {
-			Variables.generateBannedWords();
+			var testVar =
+				await Variables.generateBannedWords();
 			content =
 				content +
 				`\nMade new banned words + ${Variables.printOutBannedWords()}`;
 		}
-
-		content = bannedWords;
+		console.log(`${Variables.printOutBannedWords()}`);
 		await interaction.reply({
 			content: content,
 		});
