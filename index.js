@@ -135,8 +135,11 @@ async function initBannedWords() {
 initBannedWords();
 // Example usage: Check if date has changed every 1 minute
 setInterval(() => {
+	const solBadguyID = "1190997030542258319";
+	const _165ID = "714435782579978272";
+	// Uncomment this later
 	if (hasDateChanged()) {
-		bannedWords = Variables.generateBannedWords();
+		send165Message(solBadguyID, _165ID);
 	}
 }, 120000);
 
@@ -378,6 +381,13 @@ function callBannedWordEvent() {
 	);
 	return (content =
 		"whoopsie doopsie you did a fuckie wuckie. get timed out lmao");
+}
+
+function send165Message(channelID, userID) {
+	const channel = client.channels.cache.get(channelID);
+	channel.send(
+		`<@${userID}> Perpetual reminder that Hollow Knight Silksong will never release`
+	);
 }
 
 module.exports = Variables;
