@@ -199,20 +199,21 @@ client.on(Events.MessageCreate, async (message) => {
 		}
 	} else if (message.author.id === UserID.NimbusID) {
 		if (messageString.includes("wilk")) {
-			message.guild.members.cache.forEach(
-				(member) => {
-					if (member.id === UserID.NimbusID) {
-						member
-							.timeout(1 * 60 * 1000)
-							.then(() =>
-								console.log(
-									"Timed out nimbus"
-								)
-							)
-							.catch(console.log);
-					}
-				}
-			);
+			message.guild.members
+				.fetch(UserID.NimbusID)
+				.then((user) => {
+					user.timeout(
+						1 * 60 * 1000,
+						"Admin timed you out."
+					)
+						.then(() => {
+							console.log(
+								"Timed user out for 9000 seconds."
+							);
+						})
+						.catch(console.error);
+				})
+				.catch(console.error);
 			message.reply(
 				"Shut the fuck up about wilk nimbus I swear to god"
 			);
