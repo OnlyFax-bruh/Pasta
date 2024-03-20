@@ -193,7 +193,7 @@ client.on(Events.MessageCreate, async (message) => {
 		}
 		// I fucking hate nimbus dude (real)
 	} else if (message.author.id === UserID.EddID) {
-		if (messageString.includes("fag")) {
+		if (message.content.includes("fag")) {
 			content = await callEddEvent();
 			message.reply(content);
 		}
