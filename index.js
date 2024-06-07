@@ -89,6 +89,13 @@ for (const folder of commandFolders) {
 	}
 }
 client.login(token);
+
+const collectorFilter = (reaction, user) => {
+	return (
+		["👍", "👎"].includes(reaction.emoji.name) &&
+		user.id === interaction.user.id
+	);
+};
 //Listener for the commands
 client.on(Events.InteractionCreate, async (interaction) => {
 	if (interaction.isChatInputCommand()) {
@@ -228,7 +235,6 @@ client.on(Events.MessageCreate, async (message) => {
 			message.reply("Fuck you");
 		}
 	}
-
 	/*
 	var bannedWords = Variables.getBannedWords();
 	contentString = "";
@@ -259,6 +265,34 @@ client.on(Events.MessageCreate, async (message) => {
 		}
 	}
 	*/
+	message = message.channel.messages.fetch(
+		"1221694136021684255"
+	);
+	message
+		.awaitReactions({
+			filter: collectorFilter,
+			max: 1,
+			time: 60_000,
+			errors: ["time"],
+		})
+		.then((collected) => {
+			const reaction = collected.first();
+			if (reaction.emoji.name === "👍") {
+				var usersWhichWantRoles =
+					reaction.users.fetch();
+				for (userCollection in usersWhichWantRoles) {
+				}
+			} else {
+				message.reply(
+					"You reacted with a thumbs down."
+				);
+			}
+		})
+		.catch((collected) => {
+			message.reply(
+				"You reacted with neither a thumbs up, nor a thumbs down."
+			);
+		});
 });
 async function callHellcatPersonEvent() {
 	const initDate = new Date("February 18, 2024 00:00:00");
