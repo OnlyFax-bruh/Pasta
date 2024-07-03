@@ -226,8 +226,8 @@ client.on(Events.MessageCreate, async (message) => {
 		}
 	} else if (message.author.id === UserID.ChocolateID) {
 		if (
-			messageString.includes("hi guys") ||
-			messageString.includes("hello friends")
+			message.content.includes("hi guys") |
+			message.content.includes("hello friends")
 		) {
 			message.reply("bro forgor");
 			setTimeout(() => message.delete(), 1000);
