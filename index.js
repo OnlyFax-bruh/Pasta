@@ -110,8 +110,11 @@ client.on(Events.InteractionCreate, async (interaction) => {
 	}
 });
 
+// Variables for actual discord.js code
 let lastCheckedDate = new Date();
-
+let pythagorasSidesAndResult = -1;
+let chocolatesAnswerToPythagoras = -1;
+timer = null;
 function hasDateChanged() {
 	const currentDate = new Date();
 
@@ -164,6 +167,7 @@ client.on(Events.MessageCreate, async (message) => {
 		NimbusID: "720155708758425670",
 		EddID: "515997929241182238",
 		PastaID: "1190966073571426374",
+		HazelID: "366901247938396160",
 		ChocolateID: "972859813346299934",
 	};
 
@@ -193,12 +197,14 @@ client.on(Events.MessageCreate, async (message) => {
 			message.reply(content);
 		}
 		// I fucking hate nimbus dude (real)
-	} else if (message.author.id === UserID.EddID) {
+	}
+	if (message.author.id === UserID.EddID) {
 		if (message.content.includes("fag")) {
 			content = await callEddEvent();
 			message.reply(content);
 		}
-	} else if (message.author.id === UserID.NimbusID) {
+	}
+	if (message.author.id === UserID.NimbusID) {
 		if (messageString.includes("wilk")) {
 			message.guild.members
 				.fetch(UserID.NimbusID)
@@ -220,26 +226,83 @@ client.on(Events.MessageCreate, async (message) => {
 			);
 			setTimeout(() => message.delete(), 1000);
 		}
-	} else if (message.author.id === UserID.BoardID) {
+	}
+	if (message.author.id === UserID.BoardID) {
 		if (messageString.includes("nigg")) {
 			contentString = await callHellcatPersonEvent();
 			message.reply({ content: contentString });
 		}
-	} else if (message.author.id === UserID.ChocolateID) {
+	}
+	if (
+		message.author.id === UserID.ChocolateID ||
+		message.author.id === UserID.ByteID
+	) {
 		if (
-			message.content.includes("hi guys") |
+			message.content.includes("hi guys") ||
 			message.content.includes("hello friends")
 		) {
 			message.reply("bro forgor");
 			setTimeout(() => message.delete(), 1000);
 		}
-	} else if (message.author.id === UserID.ByteID) {
+		if (message.content.includes("!answer")) {
+			const re = RegExp("[+-]?([0-9]*[.])?[0-9]+");
+			chocolatesAnswerToPythagoras = parseFloat(
+				re.exec(message.content)[0]
+			);
+			if (
+				isWithinTolerance(
+					pythagorasSidesAndResult[2],
+					chocolatesAnswerToPythagoras
+				)
+			) {
+				if (
+					typeof timer !== "undefined" &&
+					timer !== null
+				) {
+					clearTimeout(timer);
+				}
+				message.reply("We are so back");
+			} else {
+				message.reply(`It's so joever`);
+			}
+		}
 		if (
-			messageString === "test" ||
-			message.content.includes("hi guys")
+			message.content.includes("valentigger") ||
+			message.content.includes("gearigger") ||
+			message.content === "!pythagoras"
 		) {
+			pythagorasSidesAndResult =
+				generatePythagorasProblem();
+			message.reply(
+				`You have 10 minutes to solve the following:
+				Side 1 length: ${pythagorasSidesAndResult[0]}, Side 2 length: ${pythagorasSidesAndResult[1]}, the triangle is right angled,
+				find the length of the hypotenuse.`
+			);
+
+			timer = setTimeout(() => {
+				a;
+				if (
+					chocolatesAnswerToPythagoras !==
+					pythagorasSidesAndResult[2]
+				) {
+					message.reply(
+						"You didn't answer correctly in time. Don't be sorry, be better."
+					);
+				}
+			}, 600000);
+		}
+	}
+	if (message.author.id === UserID.ByteID) {
+		if (messageString === "test") {
 			message.reply("Fuck you");
 			setTimeout(() => message.delete(), 1000);
+		}
+	}
+	if (
+		message.author.id === UserID.Byte ||
+		UserID.HazelID
+	) {
+		if (messageString === "!pythagoras") {
 		}
 	}
 
@@ -404,5 +467,21 @@ function send165Message(channelID, userID) {
 		`<@${userID}> Perpetual reminder that Hollow Knight Silksong will never release`
 	);
 }
-
+function generatePythagorasProblem() {
+	let side1 = Math.floor(Math.random() * 10 + 1);
+	let side2 = Math.floor(Math.random() * 10 + 1);
+	let hypotenuse = Math.sqrt(
+		side1 * side1 + side2 * side2
+	);
+	let numbers = [side1, side2, hypotenuse];
+	return numbers;
+}
+function isWithinTolerance(
+	correctValue,
+	userValue,
+	tolerance = 0.3
+) {
+	difference = correctValue - userValue;
+	return Math.abs(correctValue - userValue) <= tolerance;
+}
 module.exports = Variables;
