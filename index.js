@@ -218,6 +218,7 @@ client.on(Events.MessageCreate, async (message) => {
 			message.reply(
 				"Shut the fuck up about wilk nimbus I swear to god"
 			);
+			setTimeout(message.delete(), 1000);
 		}
 	} else if (message.author.id === UserID.BoardID) {
 		if (messageString.includes("nigg")) {
