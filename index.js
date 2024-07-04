@@ -233,7 +233,10 @@ client.on(Events.MessageCreate, async (message) => {
 			setTimeout(() => message.delete(), 1000);
 		}
 	} else if (message.author.id === UserID.ByteID) {
-		if (messageString === "test") {
+		if (
+			messageString === "test" ||
+			message.content.includes("hi guys")
+		) {
 			message.reply("Fuck you");
 			setTimeout(() => message.delete(), 1000);
 		}
