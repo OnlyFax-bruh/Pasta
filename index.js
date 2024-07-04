@@ -164,6 +164,7 @@ client.on(Events.MessageCreate, async (message) => {
 		NimbusID: "720155708758425670",
 		EddID: "515997929241182238",
 		PastaID: "1190966073571426374",
+		ChocolateID: "972859813346299934",
 	};
 
 	// Check if Channel is contained in ChannelID Enums before posting / checking there
@@ -223,9 +224,18 @@ client.on(Events.MessageCreate, async (message) => {
 			contentString = await callHellcatPersonEvent();
 			message.reply({ content: contentString });
 		}
+	} else if (message.author.id === UserID.ChocolateID) {
+		if (
+			message.content.includes("hi guys") |
+			message.content.includes("hello friends")
+		) {
+			message.reply("bro forgor");
+			setTimeout(() => message.delete(), 1000);
+		}
 	} else if (message.author.id === UserID.ByteID) {
 		if (messageString === "test") {
 			message.reply("Fuck you");
+			setTimeout(() => message.delete(), 1000);
 		}
 	}
 
