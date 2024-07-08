@@ -300,16 +300,18 @@ client.on(Events.MessageCreate, async (message) => {
 		}
 	}
 	if (message.author.id === UserID.AutumnID) {
-		let member = message.member;
-		let name = member.nickname.toLowerCase();
-		if (name === "autumn") {
-			message.member.setNickname("Winter");
-		} else if (name === "winter") {
-			message.member.setNickname("Spring");
-		} else if (name === "spring") {
-			message.member.setNickname("Summer");
-		} else if (name === "summer") {
-			message.member.setNickname("Autumn");
+		if (Math.random() * 10 === 10) {
+			let member = message.member;
+			let name = member.nickname.toLowerCase();
+			if (name === "autumn") {
+				message.member.setNickname("Winter");
+			} else if (name === "winter") {
+				message.member.setNickname("Spring");
+			} else if (name === "spring") {
+				message.member.setNickname("Summer");
+			} else if (name === "summer") {
+				message.member.setNickname("Autumn");
+			}
 		}
 	}
 	/*
