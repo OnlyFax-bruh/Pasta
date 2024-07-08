@@ -169,6 +169,7 @@ client.on(Events.MessageCreate, async (message) => {
 		PastaID: "1190966073571426374",
 		HazelID: "366901247938396160",
 		ChocolateID: "972859813346299934",
+		AutumnID: "799111684504813619",
 	};
 
 	// Check if Channel is contained in ChannelID Enums before posting / checking there
@@ -298,14 +299,19 @@ client.on(Events.MessageCreate, async (message) => {
 			setTimeout(() => message.delete(), 1000);
 		}
 	}
-	if (
-		message.author.id === UserID.Byte ||
-		UserID.HazelID
-	) {
-		if (messageString === "!pythagoras") {
+	if (message.author.id === UserID.AutumnID) {
+		let member = message.member;
+		let name = member.nickname.toLowerCase();
+		if (name === "autumn") {
+			message.member.setNickname("Winter");
+		} else if (name === "winter") {
+			message.member.setNickname("Spring");
+		} else if (name === "spring") {
+			message.member.setNickname("Summer");
+		} else if (name === "summer") {
+			message.member.setNickname("Autumn");
 		}
 	}
-
 	/*
 	var bannedWords = Variables.getBannedWords();
 	contentString = "";
