@@ -299,6 +299,7 @@ client.on(Events.MessageCreate, async (message) => {
 			setTimeout(() => message.delete(), 1000);
 		}
 	}
+	/*
 	if (message.author.id === UserID.AutumnID) {
 		if (Math.random() * 10 === 10) {
 			let member = message.member;
@@ -314,6 +315,8 @@ client.on(Events.MessageCreate, async (message) => {
 			}
 		}
 	}
+*/
+
 	/*
 	var bannedWords = Variables.getBannedWords();
 	contentString = "";
