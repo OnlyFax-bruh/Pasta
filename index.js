@@ -189,16 +189,17 @@ client.on(Events.MessageCreate, async (message) => {
 		.toLowerCase()
 		.replace(/\s/g, "");
 	// Basically calls splooge command when sploof writes jack(ing) off
-	if (message.author.id === UserID.SploofID) {
-		if (
-			messageString.includes("jack") &&
-			messageString.includes("off")
-		) {
-			content = await callSploogeEvent();
-			message.reply(content);
+	if (message.content.includes())
+		if (message.author.id === UserID.SploofID) {
+			if (
+				messageString.includes("jack") &&
+				messageString.includes("off")
+			) {
+				content = await callSploogeEvent();
+				message.reply(content);
+			}
+			// I fucking hate nimbus dude (real)
 		}
-		// I fucking hate nimbus dude (real)
-	}
 	if (message.author.id === UserID.EddID) {
 		if (message.content.includes("fag")) {
 			content = await callEddEvent();
