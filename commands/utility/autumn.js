@@ -82,14 +82,14 @@ module.exports = {
 		const filter = { name: "autumn" };
 		if (interaction.options.getBoolean("isgoodtake")) {
 			newRating = autumnRating.rating + 1;
-			if (newRating >= 3) {
-				newRating = 3;
-			}
-			if (newRating <= -3) {
-				newRating = -3;
-			}
 		} else {
 			newRating = autumnRating.rating - 1;
+		}
+		if (newRating >= maxRating) {
+			newRating = maxRating;
+		}
+		if (newRating <= minRating) {
+			newRating = minRating;
 		}
 		const updateDoc = {
 			$set: { rating: newRating },
