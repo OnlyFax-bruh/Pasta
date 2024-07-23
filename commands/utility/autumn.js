@@ -31,6 +31,8 @@ module.exports = {
 				.setRequired(true)
 		),
 	async execute(interaction) {
+		minRating = -3;
+		maxRating = 3;
 		const ratingToURL = new Map([
 			[
 				-3,
@@ -80,6 +82,12 @@ module.exports = {
 		const filter = { name: "autumn" };
 		if (interaction.options.getBoolean("isgoodtake")) {
 			newRating = autumnRating.rating + 1;
+			if (newRating >= 3) {
+				newRating = 3;
+			}
+			if (newRating <= -3) {
+				newRating = -3;
+			}
 		} else {
 			newRating = autumnRating.rating - 1;
 		}
