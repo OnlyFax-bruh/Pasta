@@ -146,32 +146,31 @@ setInterval(() => {
 	}
 }, 120000);
 
+const ChannelID = {
+	NutGeneralId: "1162085095532929144",
+	StriveID: "1162161285618737184",
+	SolBadguyID: "1190997030542258319",
+	TekkenEightID: "1206822417541111848",
+	BotTestCommandsID: "1190973937337769986",
+};
+const UserID = {
+	FaxID: "405367041999241216",
+	ByteID: "253108416518553600",
+	SploofID: "806964705008025611",
+	BoardID: "1081308415260885052",
+	NimbusID: "720155708758425670",
+	EddID: "515997929241182238",
+	PastaID: "1190966073571426374",
+	HazelID: "366901247938396160",
+	ChocolateID: "972859813346299934",
+	AutumnID: "799111684504813619",
+	CityID: "544778774344892427",
+};
 // TODO: We should probably put this entire method somewhere else for readability but i cba to do it rn
 client.on(Events.MessageCreate, async (message) => {
 	await mongoClient.connect();
 	pastaDB = mongoClient.db("PastaDB");
 	pastaCollection = pastaDB.collection("PastaCollection");
-	// Basically Enums
-	const ChannelID = {
-		NutGeneralId: "1162085095532929144",
-		StriveID: "1162161285618737184",
-		SolBadguyID: "1190997030542258319",
-		TekkenEightID: "1206822417541111848",
-		BotTestCommandsID: "1190973937337769986",
-	};
-	const UserID = {
-		FaxID: "405367041999241216",
-		ByteID: "253108416518553600",
-		SploofID: "806964705008025611",
-		BoardID: "1081308415260885052",
-		NimbusID: "720155708758425670",
-		EddID: "515997929241182238",
-		PastaID: "1190966073571426374",
-		HazelID: "366901247938396160",
-		ChocolateID: "972859813346299934",
-		AutumnID: "799111684504813619",
-	};
-
 	// Check if Channel is contained in ChannelID Enums before posting / checking there
 	isValidID = false;
 	for (var ID in ChannelID) {
@@ -188,118 +187,12 @@ client.on(Events.MessageCreate, async (message) => {
 	messageString = message.content
 		.toLowerCase()
 		.replace(/\s/g, "");
-	// Basically calls splooge command when sploof writes jack(ing) off
-	if (message.content.includes())
-		if (message.author.id === UserID.SploofID) {
-			if (
-				messageString.includes("jack") &&
-				messageString.includes("off")
-			) {
-				content = await callSploogeEvent();
-				message.reply(content);
-			}
-			// I fucking hate nimbus dude (real)
-		}
-	if (message.author.id === UserID.EddID) {
-		if (message.content.includes("fag")) {
-			content = await callEddEvent();
-			message.reply(content);
-		}
-	}
-	if (message.author.id === UserID.NimbusID) {
-		if (messageString.includes("wilk")) {
-			message.guild.members
-				.fetch(UserID.NimbusID)
-				.then((user) => {
-					user.timeout(
-						1 * 60 * 1000,
-						"Admin timed you out."
-					)
-						.then(() => {
-							console.log(
-								"Timed user out for 9000 seconds."
-							);
-						})
-						.catch(console.error);
-				})
-				.catch(console.error);
-			message.reply(
-				"Shut the fuck up about wilk nimbus I swear to god"
-			);
-			setTimeout(() => message.delete(), 1000);
-		}
-	}
-	if (message.author.id === UserID.BoardID) {
-		if (messageString.includes("nigg")) {
-			contentString = await callHellcatPersonEvent();
-			message.reply({ content: contentString });
-		}
-	}
-	if (
-		message.author.id === UserID.ChocolateID ||
-		message.author.id === UserID.ByteID
-	) {
-		if (
-			message.content.includes("hi guys") ||
-			message.content.includes("hello friends")
-		) {
-			message.reply("bro forgor");
-			setTimeout(() => message.delete(), 1000);
-		}
-		if (message.content.includes("!answer")) {
-			const re = RegExp("[+-]?([0-9]*[.])?[0-9]+");
-			chocolatesAnswerToPythagoras = parseFloat(
-				re.exec(message.content)[0]
-			);
-			if (
-				isWithinTolerance(
-					pythagorasSidesAndResult[2],
-					chocolatesAnswerToPythagoras
-				)
-			) {
-				if (
-					typeof timer !== "undefined" &&
-					timer !== null
-				) {
-					clearTimeout(timer);
-				}
-				message.reply("We are so back");
-			} else {
-				message.reply(`It's so joever`);
-			}
-		}
-		if (
-			message.content.includes("valentigger") ||
-			message.content.includes("gearigger") ||
-			message.content === "!pythagoras"
-		) {
-			pythagorasSidesAndResult =
-				generatePythagorasProblem();
-			message.reply(
-				`You have 10 minutes to solve the following:
-				Side 1 length: ${pythagorasSidesAndResult[0]}, Side 2 length: ${pythagorasSidesAndResult[1]}, the triangle is right angled,
-				find the length of the hypotenuse.`
-			);
-
-			timer = setTimeout(() => {
-				a;
-				if (
-					chocolatesAnswerToPythagoras !==
-					pythagorasSidesAndResult[2]
-				) {
-					message.reply(
-						"You didn't answer correctly in time. Don't be sorry, be better."
-					);
-				}
-			}, 600000);
-		}
-	}
-	if (message.author.id === UserID.ByteID) {
-		if (messageString === "test") {
-			message.reply("Fuck you");
-			setTimeout(() => message.delete(), 1000);
-		}
-	}
+	messageContentLowerCase = message.content.toLowerCase();
+	callMessageChecks(
+		message,
+		messageContentLowerCase,
+		messageString
+	);
 	/*
 	if (message.author.id === UserID.AutumnID) {
 		if (Math.random() * 10 === 10) {
@@ -349,6 +242,210 @@ client.on(Events.MessageCreate, async (message) => {
 	}
 	*/
 });
+
+client.on("messageUpdate", (oldMessage, newMessage) => {
+	newMessageContentLowerCase =
+		newMessage.content.toLowerCase();
+	newMessageString = newMessage.content
+		.toLowerCase()
+		.replace(/\s/g, "");
+	callMessageChecks(
+		newMessage,
+		newMessageContentLowerCase,
+		newMessageString
+	);
+});
+
+async function callMessageChecks(
+	message,
+	messageContentLowerCase,
+	messageString
+) {
+	if (message.author.id === UserID.SploofID) {
+		await checkSploofMessage(
+			message,
+			messageContentLowerCase,
+			messageString
+		);
+	}
+	if (message.author.id === UserID.NimbusID) {
+		await checkNimbusMessage(
+			message,
+			messageContentLowerCase,
+			messageString
+		);
+	}
+	if (message.author.id === UserID.BoardID) {
+		await checkBoardMessage(
+			message,
+			messageContentLowerCase,
+			messageString
+		);
+	}
+	if (message.author.id === UserID.ChocolateID) {
+		await checkChocolateMessage(
+			message,
+			messageContentLowerCase,
+			messageString
+		);
+	}
+	if (message.author.id === UserID.CityID) {
+		await checkCityMessage(
+			message,
+			messageContentLowerCase,
+			messageString
+		);
+	}
+	if (message.author.id === UserID.ByteID) {
+		await checkByteMessage(
+			message,
+			messageContentLowerCase,
+			messageString
+		);
+	}
+}
+
+async function checkSploofMessage(
+	message,
+	messageContentLowerCase,
+	messageString
+) {
+	if (
+		messageString.includes("jack") &&
+		messageString.includes("off")
+	) {
+		content = await callSploogeEvent();
+		message.reply(content);
+	}
+}
+
+async function checkNimbusMessage(
+	message,
+	messageContentLowerCase,
+	messageString
+) {
+	if (messageString.includes("wilk")) {
+		message.guild.members
+			.fetch(UserID.NimbusID)
+			.then((user) => {
+				user.timeout(
+					1 * 60 * 1000,
+					"Admin timed you out."
+				)
+					.then(() => {
+						console.log(
+							"Timed user out for 9000 seconds."
+						);
+					})
+					.catch(console.error);
+			})
+			.catch(console.error);
+		message.reply(
+			"Shut the fuck up about wilk nimbus I swear to god"
+		);
+		setTimeout(() => message.delete(), 1000);
+	}
+}
+
+async function checkBoardMessage(
+	message,
+	messageContentLowerCase,
+	messageString
+) {
+	if (messageString.includes("nigg")) {
+		contentString = await callHellcatPersonEvent();
+		message.reply({ content: contentString });
+	}
+}
+
+async function checkChocolateMessage(
+	message,
+	messageContentLowerCase,
+	messageString
+) {
+	if (
+		messageContentLowerCase.includes("hi guys") ||
+		messageContentLowerCase.includes("hello friends")
+	) {
+		message.reply("bro forgor");
+		setTimeout(() => message.delete(), 1000);
+	}
+	if (messageContentLowerCase.includes("!answer")) {
+		const re = RegExp("[+-]?([0-9]*[.])?[0-9]+");
+		chocolatesAnswerToPythagoras = parseFloat(
+			re.exec(messageContentLowerCase)[0]
+		);
+		if (
+			isWithinTolerance(
+				pythagorasSidesAndResult[2],
+				chocolatesAnswerToPythagoras
+			)
+		) {
+			if (
+				typeof timer !== "undefined" &&
+				timer !== null
+			) {
+				clearTimeout(timer);
+			}
+			message.reply("We are so back");
+		} else {
+			message.reply(`It's so joever`);
+		}
+	}
+	if (
+		messageContentLowerCase.includes("valentigger") ||
+		messageContentLowerCase.includes("gearigger") ||
+		messageContentLowerCase === "!pythagoras"
+	) {
+		pythagorasSidesAndResult =
+			generatePythagorasProblem();
+		message.reply(
+			`You have 10 minutes to solve the following:
+				Side 1 length: ${pythagorasSidesAndResult[0]}, Side 2 length: ${pythagorasSidesAndResult[1]}, the triangle is right angled,
+				find the length of the hypotenuse.`
+		);
+
+		timer = setTimeout(() => {
+			a;
+			if (
+				chocolatesAnswerToPythagoras !==
+				pythagorasSidesAndResult[2]
+			) {
+				message.reply(
+					"You didn't answer correctly in time. Don't be sorry, be better."
+				);
+			}
+		}, 600000);
+	}
+}
+
+async function checkCityMessage(
+	message,
+	messageContentLowerCase,
+	messageString
+) {
+	if (
+		(messageContentLowerCase.includes("lob") &&
+			messageContentLowerCase.includes("corp")) ||
+		messageContentLowerCase.includes("red mist")
+	) {
+		message.reply(
+			"I'm going to lobotomize your corporation if you keep talking"
+		);
+	}
+}
+
+async function checkByteMessage(
+	message,
+	messageContentLowerCase,
+	messageString
+) {
+	if (messageString === "test") {
+		message.reply("Fuck you");
+		setTimeout(() => message.delete(), 1000);
+	}
+}
+
 async function callHellcatPersonEvent() {
 	const initDate = new Date("February 18, 2024 00:00:00");
 	var hellcatPersonCounter = 0;
