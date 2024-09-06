@@ -166,6 +166,9 @@ const UserID = {
 	AutumnID: "799111684504813619",
 	CityID: "544778774344892427",
 };
+const possibleContent = ["ejaculated and evacuated", "blew his load and hit the road", "came a fair amount and changed his physical whereabouts", 
+	"came and went", "rubbed a dub dub with semen heading for the tub"]
+	
 // TODO: We should probably put this entire method somewhere else for readability but i cba to do it rn
 client.on(Events.MessageCreate, async (message) => {
 	await mongoClient.connect();
@@ -511,7 +514,10 @@ async function callSploogeEvent() {
 		$set: { jacks: newJacks },
 	};
 	pastaCollection.updateOne(filter, updateDoc);
-	content = `<@806964705008025611> has jacked off ${
+
+	randomIndex = Math.floor(Math.random() * possibleContent.length)
+
+	content = `<@806964705008025611> ${possibleContent[randomIndex]} off ${
 		sploogeDoc.jacks - 1
 	} times since ${initDate}`;
 	return await content;
