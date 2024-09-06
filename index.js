@@ -167,7 +167,7 @@ const UserID = {
 	CityID: "544778774344892427",
 };
 const possibleContent = ["ejaculated and evacuated", "blew his load and hit the road", "came a fair amount and changed his physical whereabouts", 
-	"came and went", "rubbed a dub dub with semen heading for the tub"]
+	"came and went", "rubbed a dub dub with semen heading for the tub", "shot his shit and hit the split"]
 	
 // TODO: We should probably put this entire method somewhere else for readability but i cba to do it rn
 client.on(Events.MessageCreate, async (message) => {
@@ -515,9 +515,9 @@ async function callSploogeEvent() {
 	};
 	pastaCollection.updateOne(filter, updateDoc);
 
-	randomIndex = Math.floor(Math.random() * possibleContent.length)
+	randomIndex = Math.floor(Math.random() * possibleContent.length+1)
 
-	content = `<@806964705008025611> ${possibleContent[randomIndex]} off ${
+	content = `<@806964705008025611> ${possibleContent[randomIndex]}${
 		sploogeDoc.jacks - 1
 	} times since ${initDate}`;
 	return await content;
