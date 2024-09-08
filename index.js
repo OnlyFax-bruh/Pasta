@@ -88,6 +88,7 @@ for (const folder of commandFolders) {
 		}
 	}
 }
+console.log(token)
 client.login(token);
 //Listener for the commands
 client.on(Events.InteractionCreate, async (interaction) => {
@@ -258,7 +259,6 @@ client.on("messageUpdate", (oldMessage, newMessage) => {
 		newMessageString
 	);
 });
-
 async function callMessageChecks(
 	message,
 	messageContentLowerCase,
@@ -444,7 +444,7 @@ async function checkByteMessage(
 	messageString
 ) {
 	if (messageString === "test") {
-		message.reply("Fuck you");
+		message.reply("Fuck you but changed");
 		setTimeout(() => message.delete(), 1000);
 	}
 }
