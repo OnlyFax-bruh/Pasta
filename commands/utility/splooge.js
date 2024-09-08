@@ -61,7 +61,7 @@ module.exports = {
 
 		randomIndex = Math.floor(Math.random() * possibleContent.length)
 
-		content = `<@806964705008025611> ${possibleContent[randomIndex]}${
+		content = `<@806964705008025611> ${possibleContent[randomIndex]} ${
 		sploogeDoc.jacks - 1
 		} times since ${initDate}`;
 		await interaction.reply({content})
