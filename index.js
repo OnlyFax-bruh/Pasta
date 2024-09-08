@@ -443,7 +443,7 @@ async function checkByteMessage(
 	messageString
 ) {
 	if (messageString === "test") {
-		message.reply("Fuck you but changed");
+		message.reply("Fuck you");
 		setTimeout(() => message.delete(), 1000);
 	}
 }
