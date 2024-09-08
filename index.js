@@ -88,7 +88,6 @@ for (const folder of commandFolders) {
 		}
 	}
 }
-console.log(token)
 client.login(token);
 //Listener for the commands
 client.on(Events.InteractionCreate, async (interaction) => {
