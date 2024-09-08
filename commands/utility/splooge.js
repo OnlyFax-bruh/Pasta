@@ -32,6 +32,8 @@ module.exports = {
 			"The mf jacked off again didn't he"
 		),
 	async execute(interaction) {
+		const possibleContent = ["ejaculated and evacuated", "blew his load and hit the road", "came a fair amount and changed his physical whereabouts", 
+			"came and went", "rubbed a dub dub with semen heading for the tub", "shot his shit and hit the split"]
 		// Connect to PastaDB within MongoDB
 		const pastaDB = mongoClient.db("PastaDB");
 		const pastaCollection = pastaDB.collection(
