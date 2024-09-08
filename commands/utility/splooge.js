@@ -59,7 +59,7 @@ module.exports = {
 		};
 		pastaCollection.updateOne(filter, updateDoc);
 
-		randomIndex = Math.floor(Math.random() * possibleContent.length+1)
+		randomIndex = Math.floor(Math.random() * possibleContent.length)
 
 		content = `<@806964705008025611> ${possibleContent[randomIndex]}${
 		sploogeDoc.jacks - 1
