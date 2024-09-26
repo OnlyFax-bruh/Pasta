@@ -188,10 +188,10 @@ client.on(Events.MessageCreate, async (message) => {
 	if (!isValidID) {
 		return;
 	}
-	messageString = message.content
+	let messageString = message.content
 		.toLowerCase()
 		.replace(/\s/g, "");
-	messageContentLowerCase = message.content.toLowerCase();
+	let messageContentLowerCase = message.content.toLowerCase();
 	callMessageChecks(
 		message,
 		messageContentLowerCase,
@@ -542,7 +542,7 @@ async function checkByteMessage(
 			message.reply("Go straight to hell. I don't even have a joke for this.")
 		}
 	}
-	if (messageString === "test") {
+	if (messageString === "test" || messageString.includes("testtest")) {
 		message.reply(`Fuck you but slightly changed again. Here's messageContentLowerCase: ${messageContentLowerCase}`);
 		setTimeout(() => message.delete(), 1000);
 	}
