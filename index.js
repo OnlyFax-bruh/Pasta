@@ -500,8 +500,8 @@ async function checkByteMessage(
 	messageContentLowerCase,
 	messageString
 ) {
-	if (messageContentLowerCase.includes("your") && (messageContentLowerCase.includes("mother") || messageContentLowerCase.includes("mom"))) {
-		message.reply("Yeah you typed it");
+	if (messageContentLowerCase.includes("your") && ( messageContentLowerCase.includes("mother") || messageContentLowerCase.includes("mom") )) {
+		message.reply(`Yeah you typed it`);
 		let shouldBanTheFucker = false;
 
 		let messageStringArray = messageContentLowerCase.toArray()
@@ -543,7 +543,11 @@ async function checkByteMessage(
 		}
 	}
 	if (messageString === "test" || messageString.includes("testtest")) {
-		message.reply(`Fuck you but slightly changed again. Here's messageContentLowerCase: ${messageContentLowerCase}`);
+		message.reply(`Fuck you but slightly changed again.
+		Here's messageContentLowerCase: ${messageContentLowerCase}
+		Here's whether your messageContentLowerCase contained "your": ${messageContentLowerCase.includes("your")}
+		Here's whether your messageContentLowerCase contained "mom": ${messageContentLowerCase.includes("mom")}
+		Here's whether your messageContentLowerCase contained "mom": ${messageContentLowerCase.includes("mother")}`);
 		setTimeout(() => message.delete(), 1000);
 	}
 }
