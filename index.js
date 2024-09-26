@@ -500,8 +500,9 @@ async function checkByteMessage(
 	messageContentLowerCase,
 	messageString
 ) {
-	if (messageContentLowerCase.includes("your") && ( messageContentLowerCase.includes("mother") || messageContentLowerCase.includes("mom") )) {
+	debug_if: if (messageContentLowerCase.includes("your") && ( messageContentLowerCase.includes("mother") || messageContentLowerCase.includes("mom") )) {
 		message.reply(`Yeah you typed it`);
+		break debug_if
 		let shouldBanTheFucker = false;
 
 		let messageStringArray = messageContentLowerCase.toArray()
