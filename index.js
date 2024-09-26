@@ -315,7 +315,7 @@ async function checkSploofMessage(
 ) {
 	if (messageContentLowerCase.includes("your") && (messageContentLowerCase.includes("mother") || messageContentLowerCase.includes("mom"))) {
 		let shouldBanTheFucker = false;
-
+		await message.reply("Fuck you")
 		let messageStringArray = messageContentLowerCase.toArray()
 		for (let i = 0; i < messageStringArray.length-1; i++) {
 			if (levenshtein(messageStringArray[i], "your") > 1 && levenshtein(messageStringArray[i], "you'r") > 1) {
@@ -548,7 +548,7 @@ async function checkByteMessage(
 		Here's messageContentLowerCase: ${messageContentLowerCase}
 		Here's whether your messageContentLowerCase contained "your": ${messageContentLowerCase.includes("your")}
 		Here's whether your messageContentLowerCase contained "mom": ${messageContentLowerCase.includes("mom")}
-		Here's whether your messageContentLowerCase contained "mom": ${messageContentLowerCase.includes("mother")}`);
+		Here's whether your messageContentLowerCase contained "mother": ${messageContentLowerCase.includes("mother")}`);
 		setTimeout(() => message.delete(), 1000);
 	}
 }
