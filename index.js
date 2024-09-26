@@ -543,7 +543,7 @@ async function checkByteMessage(
 		}
 	}
 	if (messageString === "test") {
-		message.reply("Fuck you");
+		message.reply("Fuck you but slightly changed again");
 		setTimeout(() => message.delete(), 1000);
 	}
 }
