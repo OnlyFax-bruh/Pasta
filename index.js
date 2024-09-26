@@ -248,9 +248,9 @@ client.on(Events.MessageCreate, async (message) => {
 });
 
 client.on("messageUpdate", (oldMessage, newMessage) => {
-	newMessageContentLowerCase =
+	let newMessageContentLowerCase =
 		newMessage.content.toLowerCase();
-	newMessageString = newMessage.content
+	let newMessageString = newMessage.content
 		.toLowerCase()
 		.replace(/\s/g, "");
 	callMessageChecks(
