@@ -543,7 +543,7 @@ async function checkByteMessage(
 		}
 	}
 	if (messageString === "test") {
-		message.reply("Fuck you but slightly changed again");
+		message.reply(`Fuck you but slightly changed again. Here's messageContentLowerCase: ${messageContentLowerCase}`);
 		setTimeout(() => message.delete(), 1000);
 	}
 }
