@@ -169,6 +169,8 @@ const UserID = {
 };
 const possibleContent = ["ejaculated and evacuated", "blew his load and hit the road", "came a fair amount and changed his physical whereabouts", 
 	"came and went", "rubbed a dub dub with semen heading for the tub", "shot his shit and hit the split"]
+
+const badJokeRegex = /\b(mom|mother|mama)\b/i
 	
 // TODO: We should probably put this entire method somewhere else for readability but i cba to do it rn
 client.on(Events.MessageCreate, async (message) => {
@@ -312,21 +314,21 @@ function checkForTerribleJoke(messageContentLowerCase) {
 	// TODO: DONT LET HIM GET AWAY WITH IT. MAKE THIS WORK
 	let messageStringArray = messageContentLowerCase.split(" ")
 	for (let i = 0; i < messageStringArray.length-1; i++) {
-		if (levenshtein(messageStringArray[i], "your") > 1 && levenshtein(messageStringArray[i], "you'r") > 1) {
+		if (levenshtein(messageStringArray[i].substring(0,4), "your") > 1 && levenshtein(messageStringArray[i].substring(0,6), "you'r") > 1
+		 && levenshtein(messageStringArray[i].substring(0,3), "joe") > 1) {
 			continue
 		}
 		else if (i+2 <= messageStringArray.length-1) {
-			let ldMomAfterYour = levenshtein("mom",messageStringArray[i+1]);
-			let ldMotherAfterYour = levenshtein("mother",messageStringArray[i+1])
-			let ldMomAfterYour2 = levenshtein("mom", messageStringArray[i+2]);
-			let ldMotherAfterYour2 = levenshtein("mother", messageStringArray[i+2]);
+			
+			let ldMomAfterYour = Math.min(levenshtein("mom",messageStringArray[i+1].substring(0,3), levenshtein("mom", messageStringArray[i+2].substring(0,3))));
+			let ldMotherAfterYour = Math.min(levenshtein("mother",messageStringArray[i+1].substring(0,6)), levenshtein("mother", messageStringArray[i+2].substring(0,6)))
+			let ldMamaAfterYour = Math.min(levenshtein("mama",messageStringArray[i+1].substring(0,4)), levenshtein("mama", messageStringArray[i+2].substring(0,4)))
 			
 			let boolMomAfterYour = ldMomAfterYour <= 1;
 			let boolMotherAfterYour = ldMotherAfterYour <= 2;
-			let boolMomAfterYour2 = ldMomAfterYour2 <= 1;
-			let boolMotherAfterYour2 = ldMotherAfterYour2 <= 2;
+			let boolMamaAfterYour = ldMamaAfterYour <= 1;
 			
-			if ( boolMomAfterYour || boolMomAfterYour2 || boolMotherAfterYour || boolMotherAfterYour2 ) {
+			if ( boolMomAfterYour || boolMotherAfterYour || boolMamaAfterYour) {
 				shouldBanTheFucker = true;
 			}
 		}
@@ -334,11 +336,13 @@ function checkForTerribleJoke(messageContentLowerCase) {
 		else if (i+1 <= messageStringArray.length-1) {
 			let ldMomAfterYour = levenshtein("mom",messageStringArray[i+1]);
 			let ldMotherAfterYour = levenshtein("mother",messageStringArray[i+1])
+			let ldMamaAfterYour = Math.min(levenshtein("mama",messageStringArray[i+1].substring(0,4)), levenshtein("mama", messageStringArray[i+2].substring(0,4)))
 			
 			let boolMomAfterYour = ldMomAfterYour <= 1;
 			let boolMotherAfterYour = ldMotherAfterYour <= 2;
+			let boolMamaAfterYour = ldMamaAfterYour <= 1;
 			
-			if (boolMomAfterYour || boolMotherAfterYour) {
+			if (boolMomAfterYour || boolMotherAfterYour || boolMamaAfterYour) {
 				shouldBanTheFucker = true;
 			}
 		}
@@ -349,12 +353,12 @@ async function checkSploofMessage(
 	message,
 	messageContentLowerCase,
 	messageString
-) {
-	if (messageContentLowerCase.includes("mother") || messageContentLowerCase.includes("mom")) {
+) {		
+	if (badJokeRegex.test(messageContentLowerCase)) {
 		shouldBanTheFucker = checkForTerribleJoke(messageContentLowerCase);
 		if (shouldBanTheFucker) {
 			setTimeout(() => message.delete(), 200);
-			await message.reply("Go straight to hell. I don't even have a joke for this.")
+			await message.reply("Not even hot single moms in YOUR area want anything to do with you bro. Shut up.")
 			message.guild.members
 			.fetch(UserID.SploofID)
 			.then((user) => {
