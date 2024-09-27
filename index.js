@@ -525,7 +525,7 @@ async function checkByteMessage(
 
 		setTimeout(() => message.delete(), 1000);
 	}
-	if (messageContentLowerCase.includes("mom") || messageContentLowerCase.includes("mother")) {
+	if (badJokeRegex.test(messageContentLowerCase)) {
 		if (checkForTerribleJoke(messageContentLowerCase)) {
 			message.reply("Please god let this work")
 		}
