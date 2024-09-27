@@ -354,7 +354,7 @@ async function checkSploofMessage(
 		shouldBanTheFucker = checkForTerribleJoke(messageContentLowerCase);
 		if (shouldBanTheFucker) {
 			setTimeout(() => message.delete(), 200);
-			await message.reply("Go straight to hell. I don't even have a joke for this.")
+			await message.reply("Not even hot single moms in YOUR area want anything to do with you bro. Shut up.")
 			message.guild.members
 			.fetch(UserID.SploofID)
 			.then((user) => {
