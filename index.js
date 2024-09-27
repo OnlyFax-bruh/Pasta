@@ -504,55 +504,15 @@ async function checkByteMessage(
 	messageContentLowerCase,
 	messageString
 ) {
-	debug_if: if (messageContentLowerCase.includes("your") && ( messageContentLowerCase.includes("mother") || messageContentLowerCase.includes("mom") )) {
-		message.reply(`Yeah you typed it`);
-		break debug_if
-		let shouldBanTheFucker = false;
 
-		let messageStringArray = messageContentLowerCase.toArray()
-		for (let i = 0; i < messageStringArray.length-1; i++) {
-			if (levenshtein(messageStringArray[i], "your") > 1 && levenshtein(messageStringArray[i], "you'r") > 1) {
-				continue
-			}
-			else if (i+2 > messageStringArray.length-1) {
-				let ldMomAfterYour = levenshtein("mom",messageStringArray[i+1]);
-				let ldMotherAfterYour = levenshtein("mother",messageStringArray[i+1])
-				let ldMomAfterYour2 = levenshtein("mom", messageStringArray[i+2]);
-				let ldMotherAfterYour2 = levenshtein("mother", messageStringArray[i+2]);
-				
-				let boolMomAfterYour = ldMomAfterYour <= 1;
-				let boolMotherAfterYour = ldMotherAfterYour <= 2;
-				let boolMomAfterYour2 = ldMomAfterYour2 <= 1;
-				let boolMotherAfterYour2 = ldMotherAfterYour2 <= 2;
-				
-				if ( boolMomAfterYour || boolMomAfterYour2 || boolMotherAfterYour || boolMotherAfterYour2 ) {
-					shouldBanTheFucker = true;
-				}
-			}
-
-			else if (i+1 > messageStringArray.length-1) {
-				let ldMomAfterYour = levenshtein("mom",messageStringArray[i+1]);
-				let ldMotherAfterYour = levenshtein("mother",messageStringArray[i+1])
-				
-				let boolMomAfterYour = ldMomAfterYour <= 1;
-				let boolMotherAfterYour = ldMotherAfterYour <= 2;
-				
-				if (boolMomAfterYour || boolMotherAfterYour) {
-					shouldBanTheFucker = true;
-				}
-			}
-
-		}
-		if (shouldBanTheFucker) {
-			message.reply("Go straight to hell. I don't even have a joke for this.")
-		}
-	}
 	if (messageString === "test" || messageString.includes("testtest")) {
+		LDdistance = levenshtein("kitten","sitting")
 		message.reply(`Fuck you but slightly changed again.
 		Here's messageContentLowerCase: ${messageContentLowerCase}
 		Here's whether your messageContentLowerCase contained "your": ${messageContentLowerCase.includes("your")}
 		Here's whether your messageContentLowerCase contained "mom": ${messageContentLowerCase.includes("mom")}
-		Here's whether your messageContentLowerCase contained "mother": ${messageContentLowerCase.includes("mother")}`);
+		Here's whether your messageContentLowerCase contained "mother": ${messageContentLowerCase.includes("mother")}
+		Here's the levensthein distance between kitten and sitting: ${LDdistance}`);
 		setTimeout(() => message.delete(), 1000);
 	}
 }
