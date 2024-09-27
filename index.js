@@ -505,17 +505,24 @@ async function checkByteMessage(
 	messageString
 ) {
 
-	if (messageString === "test" || messageString.includes("testtest")) {
+	if (messageString === "test"){
+			setTimeout(() => message.delete(), 1000);
+			message.reply("Fuck you")
+		}
+		messageString.includes("testtest") 
+		array = messageContentLowerCase.toArray()
 		LDdistance = levenshtein("kitten","sitting")
 		message.reply(`Fuck you but slightly changed again.
 		Here's messageContentLowerCase: ${messageContentLowerCase}
 		Here's whether your messageContentLowerCase contained "your": ${messageContentLowerCase.includes("your")}
 		Here's whether your messageContentLowerCase contained "mom": ${messageContentLowerCase.includes("mom")}
 		Here's whether your messageContentLowerCase contained "mother": ${messageContentLowerCase.includes("mother")}
+		Here's the message in toArray: ${array}
 		Here's the levensthein distance between kitten and sitting: ${LDdistance}`);
+
 		setTimeout(() => message.delete(), 1000);
-	}
 }
+
 
 async function callHellcatPersonEvent() {
 	const initDate = new Date("February 18, 2024 00:00:00");
