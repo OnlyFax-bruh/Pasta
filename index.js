@@ -351,7 +351,7 @@ async function checkSploofMessage(
 	messageString
 ) {
 	if (messageContentLowerCase.includes("your") && (messageContentLowerCase.includes("mother") || messageContentLowerCase.includes("mom")) ) {
-		shouldBanTheFucker = checkForTerribleJoke();
+		shouldBanTheFucker = checkForTerribleJoke(messageContentLowerCase);
 		if (shouldBanTheFucker) {
 			setTimeout(() => message.delete(), 200);
 			await message.reply("Go straight to hell. I don't even have a joke for this.")
@@ -521,7 +521,7 @@ async function checkByteMessage(
 
 		setTimeout(() => message.delete(), 1000);
 	}
-	else if (checkForTerribleJoke()) {
+	else if (checkForTerribleJoke(messageContentLowerCase)) {
 		message.reply("Please god let this work")
 	}
 }
