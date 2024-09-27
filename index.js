@@ -315,7 +315,7 @@ function checkForTerribleJoke(messageContentLowerCase) {
 		if (levenshtein(messageStringArray[i], "your") > 1 && levenshtein(messageStringArray[i], "you'r") > 1) {
 			continue
 		}
-		else if (i+2 > messageStringArray.length-1) {
+		else if (i+2 < messageStringArray.length-1) {
 			let ldMomAfterYour = levenshtein("mom",messageStringArray[i+1]);
 			let ldMotherAfterYour = levenshtein("mother",messageStringArray[i+1])
 			let ldMomAfterYour2 = levenshtein("mom", messageStringArray[i+2]);
@@ -331,7 +331,7 @@ function checkForTerribleJoke(messageContentLowerCase) {
 			}
 		}
 
-		else if (i+1 > messageStringArray.length-1) {
+		else if (i+1 < messageStringArray.length-1) {
 			let ldMomAfterYour = levenshtein("mom",messageStringArray[i+1]);
 			let ldMotherAfterYour = levenshtein("mother",messageStringArray[i+1])
 			
@@ -343,7 +343,7 @@ function checkForTerribleJoke(messageContentLowerCase) {
 			}
 		}
 	}
-	ret
+	return shouldBanTheFucker;
 }
 async function checkSploofMessage(
 	message,
