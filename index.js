@@ -509,7 +509,7 @@ async function checkByteMessage(
 			setTimeout(() => message.delete(), 1000);
 			message.reply("Fuck you")
 		}
-		messageString.includes("testtest") 
+	else if(messageString.includes("testtest") ) {
 		array = messageContentLowerCase.toArray()
 		LDdistance = levenshtein("kitten","sitting")
 		message.reply(`Fuck you but slightly changed again.
@@ -521,6 +521,7 @@ async function checkByteMessage(
 		Here's the levensthein distance between kitten and sitting: ${LDdistance}`);
 
 		setTimeout(() => message.delete(), 1000);
+	}
 }
 
 
