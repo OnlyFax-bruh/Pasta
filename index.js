@@ -510,7 +510,7 @@ async function checkByteMessage(
 			message.reply("Fuck you")
 		}
 	else if(messageString.includes("testtest") ) {
-		array = messageContentLowerCase.toArray()
+		array = messageContentLowerCase.split(" ")
 		LDdistance = levenshtein("kitten","sitting")
 		message.reply(`Fuck you but slightly changed again.
 		Here's messageContentLowerCase: ${messageContentLowerCase}
