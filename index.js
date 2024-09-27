@@ -350,10 +350,10 @@ async function checkSploofMessage(
 	messageContentLowerCase,
 	messageString
 ) {
-	shouldBanTheFucker = checkForTerribleJoke()
 	if (messageContentLowerCase.includes("your") && (messageContentLowerCase.includes("mother") || messageContentLowerCase.includes("mom")) ) {
-		setTimeout(() => message.delete(), 200);
+		shouldBanTheFucker = checkForTerribleJoke();
 		if (shouldBanTheFucker) {
+			setTimeout(() => message.delete(), 200);
 			await message.reply("Go straight to hell. I don't even have a joke for this.")
 			message.guild.members
 			.fetch(UserID.SploofID)
@@ -520,6 +520,9 @@ async function checkByteMessage(
 		Here's the levensthein distance between kitten and sitting: ${LDdistance}`);
 
 		setTimeout(() => message.delete(), 1000);
+	}
+	else if (checkForTerribleJoke()) {
+		message.reply("Please god let this work")
 	}
 }
 
