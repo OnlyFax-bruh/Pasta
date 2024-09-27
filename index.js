@@ -307,72 +307,71 @@ async function callMessageChecks(
 		);
 	}
 }
+function checkForTerribleJoke(messageContentLowerCase) {
+	let shouldBanTheFucker = false;
+	// TODO: DONT LET HIM GET AWAY WITH IT. MAKE THIS WORK
+	let messageStringArray = messageContentLowerCase.split(" ")
+	for (let i = 0; i < messageStringArray.length-1; i++) {
+		if (levenshtein(messageStringArray[i], "your") > 1 && levenshtein(messageStringArray[i], "you'r") > 1) {
+			continue
+		}
+		else if (i+2 > messageStringArray.length-1) {
+			let ldMomAfterYour = levenshtein("mom",messageStringArray[i+1]);
+			let ldMotherAfterYour = levenshtein("mother",messageStringArray[i+1])
+			let ldMomAfterYour2 = levenshtein("mom", messageStringArray[i+2]);
+			let ldMotherAfterYour2 = levenshtein("mother", messageStringArray[i+2]);
+			
+			let boolMomAfterYour = ldMomAfterYour <= 1;
+			let boolMotherAfterYour = ldMotherAfterYour <= 2;
+			let boolMomAfterYour2 = ldMomAfterYour2 <= 1;
+			let boolMotherAfterYour2 = ldMotherAfterYour2 <= 2;
+			
+			if ( boolMomAfterYour || boolMomAfterYour2 || boolMotherAfterYour || boolMotherAfterYour2 ) {
+				shouldBanTheFucker = true;
+			}
+		}
 
+		else if (i+1 > messageStringArray.length-1) {
+			let ldMomAfterYour = levenshtein("mom",messageStringArray[i+1]);
+			let ldMotherAfterYour = levenshtein("mother",messageStringArray[i+1])
+			
+			let boolMomAfterYour = ldMomAfterYour <= 1;
+			let boolMotherAfterYour = ldMotherAfterYour <= 2;
+			
+			if (boolMomAfterYour || boolMotherAfterYour) {
+				shouldBanTheFucker = true;
+			}
+		}
+	}
+	ret
+}
 async function checkSploofMessage(
 	message,
 	messageContentLowerCase,
 	messageString
 ) {
+	shouldBanTheFucker = checkForTerribleJoke()
 	if (messageContentLowerCase.includes("your") && (messageContentLowerCase.includes("mother") || messageContentLowerCase.includes("mom")) ) {
-		let shouldBanTheFucker = false;
 		setTimeout(() => message.delete(), 200);
-		message.reply("Fuck you")
-	// TODO: DONT LET HIM GET AWAY WITH IT. MAKE THIS WORK
-	// 	let messageStringArray = messageContentLowerCase.toArray()
-	// 	for (let i = 0; i < messageStringArray.length-1; i++) {
-	// 		if (levenshtein(messageStringArray[i], "your") > 1 && levenshtein(messageStringArray[i], "you'r") > 1) {
-	// 			continue
-	// 		}
-	// 		else if (i+2 > messageStringArray.length-1) {
-	// 			let ldMomAfterYour = levenshtein("mom",messageStringArray[i+1]);
-	// 			let ldMotherAfterYour = levenshtein("mother",messageStringArray[i+1])
-	// 			let ldMomAfterYour2 = levenshtein("mom", messageStringArray[i+2]);
-	// 			let ldMotherAfterYour2 = levenshtein("mother", messageStringArray[i+2]);
-				
-	// 			let boolMomAfterYour = ldMomAfterYour <= 1;
-	// 			let boolMotherAfterYour = ldMotherAfterYour <= 2;
-	// 			let boolMomAfterYour2 = ldMomAfterYour2 <= 1;
-	// 			let boolMotherAfterYour2 = ldMotherAfterYour2 <= 2;
-				
-	// 			if ( boolMomAfterYour || boolMomAfterYour2 || boolMotherAfterYour || boolMotherAfterYour2 ) {
-	// 				shouldBanTheFucker = true;
-	// 			}
-	// 		}
-
-	// 		else if (i+1 > messageStringArray.length-1) {
-	// 			let ldMomAfterYour = levenshtein("mom",messageStringArray[i+1]);
-	// 			let ldMotherAfterYour = levenshtein("mother",messageStringArray[i+1])
-				
-	// 			let boolMomAfterYour = ldMomAfterYour <= 1;
-	// 			let boolMotherAfterYour = ldMotherAfterYour <= 2;
-				
-	// 			if (boolMomAfterYour || boolMotherAfterYour) {
-	// 				shouldBanTheFucker = true;
-	// 			}
-	// 		}
-
-	// 	}
-	// 	if (shouldBanTheFucker) {
-	// 		await message.reply("Go straight to hell. I don't even have a joke for this.")
-	// 		message.guild.members
-	// 		.fetch(UserID.SploofID)
-	// 		.then((user) => {
-	// 			let timeOut = 1 * 60 * 1000
-	// 			user.timeout(
-	// 				timeOut,
-	// 				"Admin timed you out."
-	// 			)
-	// 				.then(() => {
-	// 					console.log(
-	// 						`Got rid of sploof for ${timeOut} seconds`
-	// 					);
-	// 				})
-	// 				.catch(console.error);
-	// 		})
-	// 		.catch(console.error);
-	// 	}
-	// }
-
+		if (shouldBanTheFucker) {
+			await message.reply("Go straight to hell. I don't even have a joke for this.")
+			message.guild.members
+			.fetch(UserID.SploofID)
+			.then((user) => {
+				let timeOut = 1 * 60 * 1000
+				user.timeout(
+					timeOut,
+					"Admin timed you out."
+				)
+					.then(() => {
+						console.log(
+							`Got rid of sploof for ${timeOut} seconds`
+						);
+					})
+					.catch(console.error);
+				})
+			.catch(console.error);
+		}
 	}
 	else if (
 		messageString.includes("jack") &&
