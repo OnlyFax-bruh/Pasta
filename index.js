@@ -316,6 +316,7 @@ async function checkSploofMessage(
 	if (messageContentLowerCase.includes("your") && (messageContentLowerCase.includes("mother") || messageContentLowerCase.includes("mom"))) {
 		let shouldBanTheFucker = false;
 		await message.reply("Fuck you")
+		setTimeout(() => message.delete(), 1000);
 		let messageStringArray = messageContentLowerCase.toArray()
 		for (let i = 0; i < messageStringArray.length-1; i++) {
 			if (levenshtein(messageStringArray[i], "your") > 1 && levenshtein(messageStringArray[i], "you'r") > 1) {
@@ -351,7 +352,7 @@ async function checkSploofMessage(
 
 		}
 		if (shouldBanTheFucker) {
-			message.reply("Go straight to hell. I don't even have a joke for this.")
+			await message.reply("Go straight to hell. I don't even have a joke for this.")
 			message.guild.members
 			.fetch(UserID.SploofID)
 			.then((user) => {
