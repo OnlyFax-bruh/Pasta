@@ -313,10 +313,10 @@ async function checkSploofMessage(
 	messageContentLowerCase,
 	messageString
 ) {
-	if (messageContentLowerCase.includes("your") && (messageContentLowerCase.includes("mother") || messageContentLowerCase.includes("mom"))) {
+	if (messageContentLowerCase.includes("your") && (messageContentLowerCase.includes("mother") || messageContentLowerCase.includes("mom")) ) {
 		let shouldBanTheFucker = false;
-		await message.reply("Fuck you")
 		setTimeout(() => message.delete(), 200);
+		message.reply("Fuck you")
 	// TODO: DONT LET HIM GET AWAY WITH IT. MAKE THIS WORK
 	// 	let messageStringArray = messageContentLowerCase.toArray()
 	// 	for (let i = 0; i < messageStringArray.length-1; i++) {
