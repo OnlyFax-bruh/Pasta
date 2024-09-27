@@ -336,7 +336,7 @@ function checkForTerribleJoke(messageContentLowerCase) {
 		else if (i+1 <= messageStringArray.length-1) {
 			let ldMomAfterYour = levenshtein("mom",messageStringArray[i+1]);
 			let ldMotherAfterYour = levenshtein("mother",messageStringArray[i+1])
-			let ldMamaAfterYour = Math.min(levenshtein("mama",messageStringArray[i+1].substring(0,4)), levenshtein("mama", messageStringArray[i+2].substring(0,4)))
+			let ldMamaAfterYour = Math.min(levenshtein("mama",messageStringArray[i+1].substring(0,4)))
 			
 			let boolMomAfterYour = ldMomAfterYour <= 1;
 			let boolMotherAfterYour = ldMotherAfterYour <= 2;
