@@ -315,7 +315,7 @@ function checkForTerribleJoke(messageContentLowerCase) {
 		if (levenshtein(messageStringArray[i], "your") > 1 && levenshtein(messageStringArray[i], "you'r") > 1) {
 			continue
 		}
-		else if (i+2 < messageStringArray.length-1) {
+		else if (i+2 <= messageStringArray.length-1) {
 			let ldMomAfterYour = levenshtein("mom",messageStringArray[i+1]);
 			let ldMotherAfterYour = levenshtein("mother",messageStringArray[i+1])
 			let ldMomAfterYour2 = levenshtein("mom", messageStringArray[i+2]);
@@ -331,7 +331,7 @@ function checkForTerribleJoke(messageContentLowerCase) {
 			}
 		}
 
-		else if (i+1 < messageStringArray.length-1) {
+		else if (i+1 <= messageStringArray.length-1) {
 			let ldMomAfterYour = levenshtein("mom",messageStringArray[i+1]);
 			let ldMotherAfterYour = levenshtein("mother",messageStringArray[i+1])
 			
@@ -350,7 +350,7 @@ async function checkSploofMessage(
 	messageContentLowerCase,
 	messageString
 ) {
-	if (messageContentLowerCase.includes("your") && (messageContentLowerCase.includes("mother") || messageContentLowerCase.includes("mom")) ) {
+	if (messageContentLowerCase.includes("mother") || messageContentLowerCase.includes("mom")) {
 		shouldBanTheFucker = checkForTerribleJoke(messageContentLowerCase);
 		if (shouldBanTheFucker) {
 			setTimeout(() => message.delete(), 200);
@@ -508,7 +508,7 @@ async function checkByteMessage(
 			setTimeout(() => message.delete(), 1000);
 			message.reply("Fuck you")
 		}
-	else if(messageString.includes("testtest") ) {
+	else if(messageContentLowerCase.includes("testtest") ) {
 		array = messageContentLowerCase.split(" ")
 		LDdistance = levenshtein("kitten","sitting")
 		message.reply(`Fuck you but slightly changed again.
@@ -521,8 +521,10 @@ async function checkByteMessage(
 
 		setTimeout(() => message.delete(), 1000);
 	}
-	else if (checkForTerribleJoke(messageContentLowerCase)) {
-		message.reply("Please god let this work")
+	if (messageContentLowerCase.includes("mom") || messageContentLowerCase.includes("mother")) {
+		if (checkForTerribleJoke(messageContentLowerCase)) {
+			message.reply("Please god let this work")
+		}
 	}
 }
 
