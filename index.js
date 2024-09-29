@@ -496,14 +496,15 @@ function needsAntiProjectMoonMeasures(stringEntry) {
 	for (let projectMoonTerm of antiProjectMoonArray){
 		lengthOfprojectMoonTerm = projectMoonTerm.length;
 		stringEntry = stringEntry.substring(0,lengthOfprojectMoonTerm);
-		let allowedlevenshteindistance = Math.floor((lengthOfprojectMoonTerm / 4) + 1);
+		let allowedlevenshteindistance = Math.floor((lengthOfprojectMoonTerm / 5) + 1);
 		if ( projectMoonTerm.split(" ").length > 1){
 			if(levenshtein(stringEntry,projectMoonTerm) < allowedlevenshteindistance) {
 				projectMoonMentionCounter += 2;
-			}
-			for (let splitTerm of projectMoonTerm.split(" ")){
-				if(levenshtein(stringEntry,projectMoonTerm) < allowedlevenshteindistance) {
-					projectMoonMentionCounter += 1;
+			} else {
+				for (let splitTerm of projectMoonTerm.split(" ")){
+					if(levenshtein(stringEntry,splitTerm) < allowedlevenshteindistance) {
+						projectMoonMentionCounter += 1;
+					}
 				}
 			}
 		} else {
@@ -512,23 +513,23 @@ function needsAntiProjectMoonMeasures(stringEntry) {
 			}
 		}
 	}
-	let tooMuchLobCorp = projectMoonMentionCounter >= 2;
-	return tooMuchLobCorp;
+	return projectMoonMentionCounter;
 }
+let MAX_LOB_CORP_ALLOWED = 1;
 async function checkCityMessage(
 	message,
 	messageContentLowerCase,
 	messageString
 ) {
-	let shouldStopLobCorp = false;
+	let lobCorpCounter = 0;
 	splitMessage = messageContentLowerCase.split(" ")
 	for (entry in splitMessage) {
-		if(shouldStopLobCorp) {
+		if(lobCorpCounter >= 2) {
 			break;
 		}
-		shouldStopLobCorp = needsAntiProjectMoonMeasures(entry) 
+		lobCorpCounter += needsAntiProjectMoonMeasures(entry) 
 	}
-	if (shouldStopLobCorp) {
+	if (lobCorpCounter >= 2) {
 		++cityBanCounter;
 		if (cityBanCounter >= 5) {
 			cityBanCounter = 0;
@@ -576,7 +577,7 @@ async function checkByteMessage(
 		} else if (messageContentLowerCase.includes("lob corp")) {
 			message.reply(`Debugging yay
 			Here's shouldStopLobCorp: ${shouldStopLobCorp}
-			Here's needsAntiProjectMoonMeasures(entry): ${needsAntiProjectMoonMeasures(entry)}
+			Here's needsAntiProjectMoonMeasures(entry): ${needsAntiProjectMoonMeasures("lob corp")}
 			Here's splitMessage: ${splitMessage}`)
 		
 		}
