@@ -172,6 +172,8 @@ const possibleContent = ["ejaculated and evacuated", "blew his load and hit the 
 	"came and went", "rubbed a dub dub with semen heading for the tub", "shot his shit and hit the split"]
 
 const badJokeRegex = /\b(mom|mother|mama)\b/i
+const badJokeAlternativeRegex = /.*your.{0,30}female\sparent/
+
 	
 // TODO: We should probably put this entire method somewhere else for readability but i cba to do it rn
 client.on(Events.MessageCreate, async (message) => {
@@ -374,7 +376,10 @@ async function checkSploofMessage(
 	messageContentLowerCase,
 	messageString
 ) {		
-	if (badJokeRegex.test(messageContentLowerCase)) {
+	if (badJokeAlternativeRegex.test(messageContentLowerCase)) {
+		setTimeout(() => message.delete(), 200);
+			await message.reply("Not even hot single moms in YOUR area want anything to do with you bro. Shut up.")
+	} else if (badJokeRegex.test(messageContentLowerCase)) {
 		shouldBanTheFucker = checkForTerribleJoke(messageContentLowerCase);
 		if (shouldBanTheFucker) {
 			setTimeout(() => message.delete(), 200);
