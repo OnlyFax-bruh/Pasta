@@ -501,7 +501,7 @@ function needsAntiProjectMoonMeasures(stringEntry) {
 			if(levenshtein(stringEntry,projectMoonTerm) < allowedlevenshteindistance) {
 				projectMoonMentionCounter += 2;
 			}
-			for (splitTerm in projectMoonTerm.split(" ")){
+			for (let splitTerm of projectMoonTerm.split(" ")){
 				if(levenshtein(stringEntry,projectMoonTerm) < allowedlevenshteindistance) {
 					projectMoonMentionCounter += 1;
 				}
