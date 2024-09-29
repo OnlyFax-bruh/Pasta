@@ -574,10 +574,11 @@ async function checkByteMessage(
 		}
 		if (lobCorpMentionCounter > MAX_LOB_CORP_ALLOWED) {
 			message.reply("This shall not stand.")
-		} else if (messageContentLowerCase.includes("lob corp")) {
+		} 
+		if (messageContentLowerCase.includes("lob corp")) {
 			message.reply(`Debugging yay
-			Here's shouldStopLobCorp: ${shouldStopLobCorp}
-			Here's needsAntiProjectMoonMeasures(entry): ${needsAntiProjectMoonMeasures("roland")}
+			Here's shouldStopLobCorp: ${lobCorpMentionCounter}
+			Here's needsAntiProjectMoonMeasures("testtest"): ${needsAntiProjectMoonMeasures("testtest")}
 			Here's splitMessage: ${splitMessage}`)
 		
 		}
