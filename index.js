@@ -378,7 +378,7 @@ async function checkSploofMessage(
 ) {		
 	if (badJokeAlternativeRegex.test(messageContentLowerCase)) {
 		setTimeout(() => message.delete(), 200);
-			await message.reply("Not even hot single moms in YOUR area want anything to do with you bro. Shut up.")
+		await message.reply("Not even hot single moms in YOUR area want anything to do with you bro. Shut up.")
 	} else if (badJokeRegex.test(messageContentLowerCase)) {
 		shouldBanTheFucker = checkForTerribleJoke(messageContentLowerCase);
 		if (shouldBanTheFucker) {
@@ -495,7 +495,7 @@ async function checkChocolateMessage(
 	}
 }
 
-let ANTI_PROJECT_MOON_ARRAY = ["roland", "lob corp", "red mist", "sephirah", "ego", "library", "ruina", "project moon"]
+let ANTI_PROJECT_MOON_ARRAY = ["roland", "lob corp", "red mist", "sephirah", "ego", "library", "ruina", "project moon", "limbus company", "abnormality"]
 for (let someString of ANTI_PROJECT_MOON_ARRAY) {
 	if (someString.split(" ").length >= 2) {
 		let concatString = ""
