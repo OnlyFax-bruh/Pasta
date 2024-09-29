@@ -534,7 +534,7 @@ async function checkCityMessage(
 		if (cityBanCounter >= 5) {
 			cityBanCounter = 0;
 			message.reply("My next Project is going to be sending you to the Moon so I can finally be rid of you")
-			timeOutSomeoneWhoDeservedIt(UserID.CityID, 1)
+			// timeOutSomeoneWhoDeservedIt(UserID.CityID, 1)
 		}
 		else {
 		message.reply("I'm going to lobotomize your corporation if you keep talking");
