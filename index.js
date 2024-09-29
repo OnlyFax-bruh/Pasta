@@ -494,9 +494,9 @@ const antiProjectMoonArray = ["roland", "lob corp", "red mist", "sephirah", "ego
 function needsAntiProjectMoonMeasures(stringEntry) {
 	let projectMoonMentionCounter = 0;
 	for (let projectMoonTerm of antiProjectMoonArray){
-		lengthOfprojectMoonTerm = projectMoonTerm.length;
+		lengthOfprojectMoonTerm = projectMoonTerm.length * 2;
 		stringEntry = stringEntry.substring(0,lengthOfprojectMoonTerm);
-		let allowedlevenshteindistance = Math.floor((lengthOfprojectMoonTerm / 5) + 1);
+		let allowedlevenshteindistance = Math.floor((lengthOfprojectMoonTerm / 10) + 1);
 		if ( projectMoonTerm.split(" ").length > 1){
 			if(levenshtein(stringEntry,projectMoonTerm) < allowedlevenshteindistance) {
 				projectMoonMentionCounter += 2;
@@ -534,7 +534,7 @@ async function checkCityMessage(
 		if (cityBanCounter >= 5) {
 			cityBanCounter = 0;
 			message.reply("My next Project is going to be sending you to the Moon so I can finally be rid of you")
-			timeOutSomeoneWhoDeservedIt(UserID.CityID, 1)
+			// timeOutSomeoneWhoDeservedIt(UserID.CityID, 1)
 		}
 		else {
 		message.reply("I'm going to lobotomize your corporation if you keep talking");
