@@ -490,7 +490,16 @@ async function checkChocolateMessage(
 	}
 }
 
-const ANTI_PROJECT_MOON_ARRAY = ["roland", "lob corp", "red mist", "sephirah", "ego", "library of ruina", "project moon"]
+let ANTI_PROJECT_MOON_ARRAY = ["roland", "lob corp", "red mist", "sephirah", "ego", "library", "ruina", "project moon"]
+for (let someString of ANTI_PROJECT_MOON_ARRAY) {
+	if (someString.split(" ").length >= 2) {
+		let concatString = ""
+		for (let stringEntry of someString.split(" ")) {
+			concatString += stringEntry
+		}
+		ANTI_PROJECT_MOON_ARRAY.push(concatString)
+	}
+}
 const ALLOWED_CHAR_OFFSET = 3
 function needsAntiProjectMoonMeasures(stringEntry) {
 	let projectMoonMentionCounter = 0;
