@@ -490,13 +490,14 @@ async function checkChocolateMessage(
 	}
 }
 
-const antiProjectMoonArray = ["roland", "lob corp", "red mist", "sephirah", "ego", "library of ruina", "project moon"]
+const ANTI_PROJECT_MOON_ARRAY = ["roland", "lob corp", "red mist", "sephirah", "ego", "library of ruina", "project moon"]
+const ALLOWED_CHAR_OFFSET = 3
 function needsAntiProjectMoonMeasures(stringEntry) {
 	let projectMoonMentionCounter = 0;
-	for (let projectMoonTerm of antiProjectMoonArray){
-		lengthOfprojectMoonTerm = projectMoonTerm.length * 2;
-		stringEntry = stringEntry.substring(0,lengthOfprojectMoonTerm);
-		let allowedlevenshteindistance = Math.floor((lengthOfprojectMoonTerm / 10) + 1);
+	for (let projectMoonTerm of ANTI_PROJECT_MOON_ARRAY){
+		lengthOfprojectMoonTerm = projectMoonTerm.length;
+		stringEntry = stringEntry.substring(0,lengthOfprojectMoonTerm+ALLOWED_CHAR_OFFSET);
+		let allowedlevenshteindistance = lengthOfprojectMoonTerm <= 3 ? 1: 2;
 		if ( projectMoonTerm.split(" ").length > 1){
 			if(levenshtein(stringEntry,projectMoonTerm) < allowedlevenshteindistance) {
 				projectMoonMentionCounter += 2;
