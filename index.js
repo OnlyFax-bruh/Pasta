@@ -521,15 +521,15 @@ async function checkCityMessage(
 	messageContentLowerCase,
 	messageString
 ) {
-	let lobCorpCounter = 0;
+	let lobCorpMentionCounter = 0;
 	splitMessage = messageContentLowerCase.split(" ")
 	for (entry in splitMessage) {
-		if(lobCorpCounter >= 2) {
+		if(lobCorpMentionCounter >= 2) {
 			break;
 		}
-		lobCorpCounter += needsAntiProjectMoonMeasures(entry) 
+		lobCorpMentionCounter += needsAntiProjectMoonMeasures(entry) 
 	}
-	if (lobCorpCounter >= 2) {
+	if (lobCorpMentionCounter > MAX_LOB_CORP_ALLOWED) {
 		++cityBanCounter;
 		if (cityBanCounter >= 5) {
 			cityBanCounter = 0;
@@ -564,20 +564,20 @@ async function checkByteMessage(
 		Here's the levensthein distance between kitten and sitting: ${LDdistance}`);
 		setTimeout(() => message.delete(), 1000);
 	} else {
-		let shouldStopLobCorp = false;
+		let lobCorpMentionCounter = 0;
 		splitMessage = messageContentLowerCase.split(" ")
 		for (entry in splitMessage) {
-			if(shouldStopLobCorp) {
+			if(lobCorpMentionCounter > MAX_LOB_CORP_ALLOWED) {
 				break;
 			}
-			shouldStopLobCorp = needsAntiProjectMoonMeasures(entry) 
+			lobCorpMentionCounter += needsAntiProjectMoonMeasures(entry) 
 		}
-		if (shouldStopLobCorp) {
+		if (lobCorpMentionCounter > MAX_LOB_CORP_ALLOWED) {
 			message.reply("This shall not stand.")
 		} else if (messageContentLowerCase.includes("lob corp")) {
 			message.reply(`Debugging yay
 			Here's shouldStopLobCorp: ${shouldStopLobCorp}
-			Here's needsAntiProjectMoonMeasures(entry): ${needsAntiProjectMoonMeasures("lob corp")}
+			Here's needsAntiProjectMoonMeasures(entry): ${needsAntiProjectMoonMeasures("roland")}
 			Here's splitMessage: ${splitMessage}`)
 		
 		}
