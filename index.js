@@ -515,7 +515,10 @@ function needsAntiProjectMoonMeasures(stringEntry) {
 		if ( projectMoonTerm.split(" ").length > 1){
 			if(levenshtein(stringEntry,projectMoonTerm) < allowedlevenshteindistance) {
 				projectMoonMentionCounter += 2;
-			} else {
+			} else if (levenshtein(stringEntry.replace(/\s+/g, ""),projectMoonTerm) < allowedlevenshteindistance) {
+				projectMoonMentionCounter += 2;
+			}
+			 else {
 				for (let splitTerm of projectMoonTerm.split(" ")){
 					if(levenshtein(stringEntry,splitTerm) < allowedlevenshteindistance) {
 						projectMoonMentionCounter += 1;
@@ -524,7 +527,7 @@ function needsAntiProjectMoonMeasures(stringEntry) {
 			}
 		} else {
 			if(levenshtein(stringEntry,projectMoonTerm) < allowedlevenshteindistance) {
-				++projectMoonMentionCounter;
+				projectMoonMentionCounter += 2;
 			}
 		}
 	}
@@ -551,9 +554,6 @@ async function checkCityMessage(
 			message.reply("My next Project is going to be sending you to the Moon so I can finally be rid of you")
 			// timeOutSomeoneWhoDeservedIt(UserID.CityID, 1)
 		}
-		else {
-		message.reply("I'm going to lobotomize your corporation if you keep talking");
-		}
 	}
 }
 
@@ -578,26 +578,27 @@ async function checkByteMessage(
 		Here's the message in toArray: ${array}
 		Here's the levensthein distance between kitten and sitting: ${LDdistance}`);
 		setTimeout(() => message.delete(), 1000);
-	} else {
-		let lobCorpMentionCounter = 0;
-		splitMessage = messageContentLowerCase.split(" ")
-		for (let entry of splitMessage) {
-			if(lobCorpMentionCounter > MAX_LOB_CORP_ALLOWED) {
-				break;
-			}
-			lobCorpMentionCounter += needsAntiProjectMoonMeasures(entry) 
-		}
-		if (lobCorpMentionCounter > MAX_LOB_CORP_ALLOWED) {
-			message.reply("This shall not stand.")
-		} 
-		if (messageContentLowerCase.includes("lob corp")) {
-			message.reply(`Debugging yay
-			Here's shouldStopLobCorp: ${lobCorpMentionCounter}
-			Here's needsAntiProjectMoonMeasures("testtest"): ${needsAntiProjectMoonMeasures("testtest")}
-			Here's splitMessage: ${splitMessage}`)
+	} 
+	// else {
+	// 	let lobCorpMentionCounter = 0;
+	// 	splitMessage = messageContentLowerCase.split(" ")
+	// 	for (let entry of splitMessage) {
+	// 		if(lobCorpMentionCounter > MAX_LOB_CORP_ALLOWED) {
+	// 			break;
+	// 		}
+	// 		lobCorpMentionCounter += needsAntiProjectMoonMeasures(entry) 
+	// 	}
+	// 	if (lobCorpMentionCounter > MAX_LOB_CORP_ALLOWED) {
+	// 		message.reply("This shall not stand.")
+	// 	} 
+	// 	if (messageContentLowerCase.includes("lob corp")) {
+	// 		message.reply(`Debugging yay
+	// 		Here's shouldStopLobCorp: ${lobCorpMentionCounter}
+	// 		Here's needsAntiProjectMoonMeasures("testtest"): ${needsAntiProjectMoonMeasures("testtest")}
+	// 		Here's splitMessage: ${splitMessage}`)
 		
-		}
-	}
+	// 	}
+	// }
 }
 
 
