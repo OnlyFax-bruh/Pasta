@@ -566,7 +566,7 @@ async function checkByteMessage(
 	} else {
 		let lobCorpMentionCounter = 0;
 		splitMessage = messageContentLowerCase.split(" ")
-		for (entry in splitMessage) {
+		for (let entry of splitMessage) {
 			if(lobCorpMentionCounter > MAX_LOB_CORP_ALLOWED) {
 				break;
 			}
