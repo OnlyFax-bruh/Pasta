@@ -532,13 +532,13 @@ async function checkCityMessage(
 	messageString
 ) {
 	let lobCorpMentionCounter = 0;
-	splitMessage = messageContentLowerCase.split(" ")
-	for (let entry of splitMessage) {
-		if(lobCorpMentionCounter >= 2) {
-			break;
+		splitMessage = messageContentLowerCase.split(" ")
+		for (let entry of splitMessage) {
+			if(lobCorpMentionCounter > MAX_LOB_CORP_ALLOWED) {
+				break;
+			}
+			lobCorpMentionCounter += needsAntiProjectMoonMeasures(entry) 
 		}
-		lobCorpMentionCounter += needsAntiProjectMoonMeasures(entry) 
-	}
 	if (lobCorpMentionCounter > MAX_LOB_CORP_ALLOWED) {
 		++cityBanCounter;
 		if (cityBanCounter >= 5) {
