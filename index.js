@@ -494,7 +494,7 @@ const antiProjectMoonArray = ["roland", "lob corp", "red mist", "sephirah", "ego
 function needsAntiProjectMoonMeasures(stringEntry) {
 	let projectMoonMentionCounter = 0;
 	for (let projectMoonTerm of antiProjectMoonArray){
-		lengthOfprojectMoonTerm = projectMoonTerm.length;
+		lengthOfprojectMoonTerm = projectMoonTerm.length * 2;
 		stringEntry = stringEntry.substring(0,lengthOfprojectMoonTerm);
 		let allowedlevenshteindistance = Math.floor((lengthOfprojectMoonTerm / 5) + 1);
 		if ( projectMoonTerm.split(" ").length > 1){
