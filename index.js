@@ -524,7 +524,7 @@ async function checkCityMessage(
 ) {
 	let lobCorpMentionCounter = 0;
 	splitMessage = messageContentLowerCase.split(" ")
-	for (entry in splitMessage) {
+	for (let entry of splitMessage) {
 		if(lobCorpMentionCounter >= 2) {
 			break;
 		}
