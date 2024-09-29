@@ -573,6 +573,12 @@ async function checkByteMessage(
 		}
 		if (shouldStopLobCorp) {
 			message.reply("This shall not stand.")
+		} else if (messageContentLowerCase.includes("lob corp")) {
+			message.reply(`Debugging yay
+			Here's shouldStopLobCorp: ${shouldStopLobCorp}
+			Here's needsAntiProjectMoonMeasures(entry): ${needsAntiProjectMoonMeasures(entry)}
+			Here's splitMessage: ${splitMessage}`)
+		
 		}
 	}
 }
