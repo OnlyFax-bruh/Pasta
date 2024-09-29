@@ -526,7 +526,7 @@ async function checkCityMessage(
 		if(shouldStopLobCorp) {
 			break;
 		}
-		// shouldStopLobCorp = needsAntiProjectMoonMeasures(entry) 
+		shouldStopLobCorp = needsAntiProjectMoonMeasures(entry) 
 	}
 	if (shouldStopLobCorp) {
 		++cityBanCounter;
@@ -569,7 +569,7 @@ async function checkByteMessage(
 			if(shouldStopLobCorp) {
 				break;
 			}
-			// shouldStopLobCorp = needsAntiProjectMoonMeasures(entry) 
+			shouldStopLobCorp = needsAntiProjectMoonMeasures(entry) 
 		}
 		if (shouldStopLobCorp) {
 			message.reply("This shall not stand.")
