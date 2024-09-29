@@ -496,7 +496,7 @@ function needsAntiProjectMoonMeasures(stringEntry) {
 	for (let projectMoonTerm of antiProjectMoonArray){
 		lengthOfprojectMoonTerm = projectMoonTerm.length * 2;
 		stringEntry = stringEntry.substring(0,lengthOfprojectMoonTerm);
-		let allowedlevenshteindistance = Math.floor((lengthOfprojectMoonTerm / 5) + 1);
+		let allowedlevenshteindistance = Math.floor((lengthOfprojectMoonTerm / 10) + 1);
 		if ( projectMoonTerm.split(" ").length > 1){
 			if(levenshtein(stringEntry,projectMoonTerm) < allowedlevenshteindistance) {
 				projectMoonMentionCounter += 2;
