@@ -496,7 +496,7 @@ function needsAntiProjectMoonMeasures(stringEntry) {
 	for (projectMoonTerm in antiProjectMoonArray){
 		lengthOfprojectMoonTerm = projectMoonTerm.length;
 		stringEntry = stringEntry.substring(0,lengthOfprojectMoonTerm);
-		allowedlevenshteindistance = (int)(lengthOfprojectMoonTerm/4+1);
+		allowedlevenshteindistance = (int)((lengthOfprojectMoonTerm/4)+1);
 		if ( projectMoonTerm.split(" ").length > 1){
 			if(levenshtein(stringEntry,projectMoonTerm) < allowedlevenshteindistance) {
 				projectMoonMentionCounter += 2;
@@ -526,7 +526,7 @@ async function checkCityMessage(
 		if(shouldStopLobCorp) {
 			break;
 		}
-		shouldStopLobCorp = needsAntiProjectMoonMeasures(entry) 
+		// shouldStopLobCorp = needsAntiProjectMoonMeasures(entry) 
 	}
 	if (shouldStopLobCorp) {
 		++cityBanCounter;
