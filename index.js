@@ -512,7 +512,7 @@ function needsAntiProjectMoonMeasures(stringEntry) {
 			}
 		}
 	}
-	tooMuchLobCorp = projectMoonMentionCounter >= 2;
+	let tooMuchLobCorp = projectMoonMentionCounter >= 2;
 	return tooMuchLobCorp;
 }
 async function checkCityMessage(
