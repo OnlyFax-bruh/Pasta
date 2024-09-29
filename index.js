@@ -111,6 +111,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 	}
 });
 
+let cityBanCounter = 0
 // Variables for actual discord.js code
 let lastCheckedDate = new Date();
 let pythagorasSidesAndResult = -1;
@@ -309,6 +310,25 @@ async function callMessageChecks(
 		);
 	}
 }
+function timeOutSomeoneWhoDeservedIt(userID, minutes=1) {
+	message.guild.members
+			.fetch(userID)
+			.then((user) => {
+				let timeOut = minutes * 60 * 1000
+				user.timeout(
+					timeOut,
+					"Admin timed you out."
+				)
+					.then(() => {
+						console.log(
+							`Got rid of someone for ${timeOut} seconds`
+						);
+					})
+					.catch(console.error);
+				})
+			.catch(console.error);
+
+}
 function checkForTerribleJoke(messageContentLowerCase) {
 	let shouldBanTheFucker = false;
 	// TODO: DONT LET HIM GET AWAY WITH IT. MAKE THIS WORK
@@ -359,22 +379,6 @@ async function checkSploofMessage(
 		if (shouldBanTheFucker) {
 			setTimeout(() => message.delete(), 200);
 			await message.reply("Not even hot single moms in YOUR area want anything to do with you bro. Shut up.")
-			message.guild.members
-			.fetch(UserID.SploofID)
-			.then((user) => {
-				let timeOut = 1 * 60 * 1000
-				user.timeout(
-					timeOut,
-					"Admin timed you out."
-				)
-					.then(() => {
-						console.log(
-							`Got rid of sploof for ${timeOut} seconds`
-						);
-					})
-					.catch(console.error);
-				})
-			.catch(console.error);
 		}
 	}
 	else if (
@@ -486,19 +490,54 @@ async function checkChocolateMessage(
 	}
 }
 
+const antiProjectMoonArray = ["roland", "lob corp", "red mist", "sephirah", "ego", "library of ruina", "project moon"]
+function needsAntiProjectMoonMeasures(stringEntry) {
+	let projectMoonMentionCounter = 0;
+	for (projectMoonTerm in antiProjectMoonArray){
+		lengthOfprojectMoonTerm = projectMoonTerm.length;
+		stringEntry = stringEntry.substring(0,lengthOfprojectMoonTerm);
+		allowedlevenshteindistance = (int)(lengthOfprojectMoonTerm/4+1);
+		if ( projectMoonTerm.split(" ").length > 1){
+			if(levenshtein(stringEntry,projectMoonTerm) < allowedlevenshteindistance) {
+				projectMoonMentionCounter += 2;
+			}
+			for (splitTerm in projectMoonTerm.split()){
+				if(levenshtein(stringEntry,projectMoonTerm) < allowedlevenshteindistance) {
+					projectMoonMentionCounter += 1;
+				}
+			}
+		} else {
+			if(levenshtein(stringEntry,projectMoonTerm) < allowedlevenshteindistance) {
+				++projectMoonMentionCounter;
+			}
+		}
+	}
+	tooMuchLobCorp = projectMoonMentionCounter >= 2;
+	return tooMuchLobCorp;
+}
 async function checkCityMessage(
 	message,
 	messageContentLowerCase,
 	messageString
 ) {
-	if (
-		(messageContentLowerCase.includes("lob") &&
-			messageContentLowerCase.includes("corp")) ||
-		messageContentLowerCase.includes("red mist")
-	) {
-		message.reply(
-			"I'm going to lobotomize your corporation if you keep talking"
-		);
+	let shouldStopLobCorp = false;
+	splitMessage = messageContentLowerCase.split(" ")
+	for (entry in splitMessage) {
+		if(shouldStopLobCorp) {
+			break;
+		}
+		shouldStopLobCorp = needsAntiProjectMoonMeasures(entry) 
+	}
+	if (shouldStopLobCorp) {
+		++cityBanCounter;
+		if (cityBanCounter >= 5) {
+			cityBanCounter = 0;
+			message.reply("My next Project is going to be sending you to the Moon so I can finally be rid of you")
+			timeOutSomeoneWhoDeservedIt(UserID.CityID, 1)
+		}
+		else {
+		message.reply("I'm going to lobotomize your corporation if you keep talking");
+		}
 	}
 }
 
@@ -522,12 +561,18 @@ async function checkByteMessage(
 		Here's whether your messageContentLowerCase contained "mother": ${messageContentLowerCase.includes("mother")}
 		Here's the message in toArray: ${array}
 		Here's the levensthein distance between kitten and sitting: ${LDdistance}`);
-
 		setTimeout(() => message.delete(), 1000);
-	}
-	if (badJokeRegex.test(messageContentLowerCase)) {
-		if (checkForTerribleJoke(messageContentLowerCase)) {
-			message.reply("Please god let this work")
+	} else {
+		let shouldStopLobCorp = false;
+		splitMessage = messageContentLowerCase.split(" ")
+		for (entry in splitMessage) {
+			if(shouldStopLobCorp) {
+				break;
+			}
+			shouldStopLobCorp = needsAntiProjectMoonMeasures(entry) 
+		}
+		if (shouldStopLobCorp) {
+			message.reply("This shall not stand.")
 		}
 	}
 }
