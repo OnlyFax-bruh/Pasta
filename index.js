@@ -337,7 +337,7 @@ function checkForTerribleJoke(messageContentLowerCase) {
 	let messageStringArray = messageContentLowerCase.split(" ")
 	for (let i = 0; i < messageStringArray.length-1; i++) {
 		if (levenshtein(messageStringArray[i].substring(0,4), "your") > 1 && levenshtein(messageStringArray[i].substring(0,6), "you'r") > 1
-		 && levenshtein(messageStringArray[i].substring(0,3), "joe") > 1) {
+		 && levenshtein(messageStringArray[i].substring(0,3), "joe") > 1 && levenshtein(messageStringArray[i].substring(0,3), "ur" > 1)) {
 			continue
 		}
 		else if (i+2 <= messageStringArray.length-1) {
