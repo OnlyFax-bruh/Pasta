@@ -312,11 +312,11 @@ async function callMessageChecks(
 		);
 	}
 }
-function timeOutSomeoneWhoDeservedIt(userID, minutes=1) {
+function timeOutSomeoneWhoDeservedIt(userID, seconds=60) {
 	message.guild.members
 			.fetch(userID)
 			.then((user) => {
-				let timeOut = minutes * 60 * 1000
+				let timeOut = 1 * seconds * 1000
 				user.timeout(
 					timeOut,
 					"Admin timed you out."
@@ -549,10 +549,10 @@ async function checkCityMessage(
 		}
 	if (lobCorpMentionCounter > MAX_LOB_CORP_ALLOWED) {
 		++cityBanCounter;
-		if (cityBanCounter >= 5) {
+		if (cityBanCounter >= 10) {
 			cityBanCounter = 0;
 			message.reply("My next Project is going to be sending you to the Moon so I can finally be rid of you")
-			// timeOutSomeoneWhoDeservedIt(UserID.CityID, 1)
+			timeOutSomeoneWhoDeservedIt(UserID.CityID, 30)
 		}
 	}
 }
