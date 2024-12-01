@@ -9,7 +9,7 @@
 		"discord.js": "^14.14.1",
 		"dotenv": "^16.4.1",
 		"js-levenshtein": "^1.1.6",
-		"mongodb": "^6.3.0",
+		"mongodb": "^6.11.0",
 		"random-words": "^2.0.1"
 	},
 	"scripts": {
